@@ -1,0 +1,1 @@
+polyDlmForecast <-function(model , x , h = 1 ) UseMethod("polyDlmForecast")

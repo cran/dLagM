@@ -1,0 +1,67 @@
+\name{koyckDlm}
+\alias{koyckDlm}
+
+\title{
+Implement finite autoregressive distributed lag model
+}
+\description{
+A function that applies autoregressive distributed lag models of order (p , q) with one predictor.
+}
+\usage{
+koyckDlm(x , y , show.summary = TRUE)
+}
+\arguments{
+  \item{x}{
+  A vector including the observations of predictor time series. This is not restricted to \code{ts} objects.
+  }
+  \item{y}{
+  A vector including the observations of dependent time series. This is not restricted to \code{ts} objects.
+  }
+  \item{show.summary}{
+  If \code{TRUE}, prints standard model summary for the model of interest.
+  }  
+ 
+}
+\details{
+
+To deal with infinite DLMs, we can use the Koyck transformation. When we apply Koyck transformation, we get the following:
+
+\deqn{
+      Y_{t} - \phi Y_{t-1}  = \alpha (1-\phi)+\beta X_{t} + (\epsilon_{t}-\phi \epsilon_{t-1}).
+      }
+
+When we solve this equation for \eqn{Y_{t}}, we obtain Koyck DLM as follows:
+\deqn{
+ Y_{t} = \delta_{1} + \delta_{2} Y_{t-1} + \delta_{3} X_{t} + \nu_{t},
+}
+where \eqn{\delta_{1} = \alpha (1-\phi),\delta_{2}=\phi,\delta_{3}=\beta} and the random error after the transformation is \eqn{\nu_{t}=(\epsilon_{t}-\phi \epsilon_{t-1})} (Judge and Griffiths, 2000).
+
+Then, instrumental variables estimation is employed to fit the model.
+}
+
+
+
+\value{
+
+\item{model}{An object of class \code{ivreg}. See the details of \href{https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg}{\code{ivreg}} function.}
+
+\item{geometric.coefficients}{A vector composed of corresponding geometric distributed lag model coefficients.}
+}
+
+\references{
+B.H. Baltagi. \emph{Econometrics}, Fifth Ed. Springer, 2011.
+
+R.C. Hill, W.E. Griffiths, G.G. Judge. \emph{Undergraduate Econometrics}. Wiley, 2000. 
+}
+
+\author{
+Haydar Demirhan
+
+Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
+}
+
+\examples{
+data(warming)
+model.koyck = koyckDlm(x = warming$NoMotorVehicles , 
+y = warming$Warming , show.summary = TRUE)
+}

@@ -1,0 +1,1 @@
+koyckDlmForecast <- function( model , x , h = 1 ) UseMethod("koyckDlmForecast")
