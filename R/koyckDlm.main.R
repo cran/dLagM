@@ -10,11 +10,11 @@ koyckDlm.main = function(x , y , show.summary = TRUE){
   phi = coefs[2]
   alpha = coefs[1]/(1 - phi)
   geometric.coefficients = data.frame(alpha, beta , phi)
+  rownames(geometric.coefficients) = "Geometric coefficients: "
   if (show.summary == TRUE){
     print(summary(model))
     print(geometric.coefficients)
   }
-  rownames(geometric.coefficients) = "Geometric coefficients: "
   return(list(model = model, geometric.coefficients = geometric.coefficients))
   
 }

@@ -8,6 +8,7 @@
 #' @importFrom AER ivreg
 #' @importFrom Hmisc Lag
 #' @importFrom dynlm dynlm
+
 #' @import stats
 #' @import wavethresh
 #' @import AER
@@ -22,6 +23,8 @@
 #' @S3method koyckDlmForecast default
 #' @S3method ardlDlm default
 #' @S3method ardlDlmForecast default
+#' @S3method MASE default
+#' @S3method sortScore default
 
 #' @export dlm
 #' @export polyDlm
@@ -31,6 +34,8 @@
 #' @export koyckDlmForecast
 #' @export ardlDlm
 #' @export ardlDlmForecast
+#' @export MASE
+#' @export sortScore
 
 poly.dlm.tests = function(coef , y.t , design.z , tr.matrix , n , q , print = TRUE ){
   z = data.frame(array(1,(n-q)) , design.z )

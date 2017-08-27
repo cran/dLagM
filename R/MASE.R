@@ -1,0 +1,1 @@
+MASE <- function( observed , fitted ) UseMethod("MASE")
