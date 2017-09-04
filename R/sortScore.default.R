@@ -1,5 +1,5 @@
 sortScore.default <- 
-  function(x, score = c("bic", "aic") ){
+  function(x, score = c("bic", "aic", "mase") ){
     
     options(warn=-1)
     

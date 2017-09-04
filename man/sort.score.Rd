@@ -2,17 +2,17 @@
 \alias{sortScore}
 
 \title{
-Sort ACI and BIC scores
+Sort ACI, BIC and MASE scores
 }
 \description{
-A function that displays sorted AIC and BIC scores.
+A function that displays sorted AIC, BIC, and MASE scores.
 }
 \usage{
-sortScore(x, score = c("bic", "aic"))
+sortScore(x, score = c("bic", "aic", "mase"))
 }
 \arguments{
   \item{x}{
-  A vector of AIC or BIC values.
+  A vector of AIC, BIC, or MASE values.
   }
   \item{score}{
   The type of scores to be sorted.
@@ -20,7 +20,7 @@ sortScore(x, score = c("bic", "aic"))
 
 }
 \details{
-This function sorts the AIC or BIC scores to display the smallest one at the top of a bunch of AIC or BIC scores.
+This function sorts the AIC, BIC, or MASE scores to display the smallest one at the top of a bunch of AIC, BIC, or MASE scores.
 }
 
 \author{
@@ -40,7 +40,10 @@ model.poly3 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming ,
 
 aic = AIC(model.poly1$model, model.poly2$model, model.poly3$model)
 bic = BIC(model.poly1$model, model.poly2$model, model.poly3$model)
-sortScore(aic,score = "aic")
-sortScore(bic,score = "bic")
+mase = MASE(model.poly1$model, model.poly2$model, model.poly3$model)
+
+sortScore(aic , score = "aic")
+sortScore(bic , score = "bic")
+sortScore(mase , score = "mase")
 
 }

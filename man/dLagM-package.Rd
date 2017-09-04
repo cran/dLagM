@@ -12,8 +12,8 @@ Provides time series regression models with one predictor using finite distribut
 \tabular{ll}{
 Package: \tab dLagM\cr
 Type: \tab Package\cr
-Version: \tab 0.0.8\cr
-Date: \tab 2017-08-26\cr
+Version: \tab 0.0.9\cr
+Date: \tab 2017-09-03\cr
 License: \tab GPL-3\cr
 }
 

@@ -5,17 +5,17 @@
 Compute mean absolute scaled error (MASE)
 }
 \description{
-A function that computes mean absolute scaled error.
+A function that computes mean absolute scaled error for fitted models.
 }
 \usage{
-MASE(observed, fitted)
+MASE(model, ...)
 }
 \arguments{
-  \item{observed}{
-  Observed time series data. 
+  \item{model}{
+  Model object fitted for time series data. 
   }
-  \item{fitted}{
-  Fitted values of the model for which the MASE value will be calculated.
+  \item{...}{
+  Optionally more fitted models.
   } 
 
 }
@@ -52,7 +52,12 @@ Hyndman, R.J. and Koehler, A.B. (2006). Another look at measures of forecast acc
 
 \examples{
 data(warming)
-model.poly = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-q = 2 , k = 2 , show.beta = TRUE ,  show.summary = TRUE)
-MASE(observed = warming$Warming, fitted = model.poly$model$fitted.values)
+model.poly1 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+                     q = 2 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+model.poly2 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+                      q = 3 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+model.poly3 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+                      q = 4 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+                      
+mase = MASE(model.poly1$model, model.poly2$model, model.poly3$model)
 }

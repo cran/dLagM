@@ -3,7 +3,9 @@ sortScore.main <- function(x, score){
     print(x[with(x, order(AIC)),])
   } else if (score == "bic") {
     print(x[with(x, order(BIC)),])
+  } else if (score == "mase") {
+    print(x[with(x, order(MASE)),])
   } else {
-    warning("The argument score only accepts valid arguments either aic or bic.")
+    warning("The argument score only accepts valid arguments aic, bic, or mase.")
   }
 }

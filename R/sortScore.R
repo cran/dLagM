@@ -1,1 +1,1 @@
-sortScore <- function(x, score = c("bic", "aic")) UseMethod("sortScore")
+sortScore <- function(x, score = c("bic", "aic", "mase")) UseMethod("sortScore")

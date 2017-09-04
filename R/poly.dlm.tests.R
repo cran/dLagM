@@ -4,6 +4,7 @@
 #' @importFrom stats pt
 #' @importFrom stats formula
 #' @importFrom stats ts
+#' @importFrom stats Box.test
 #' @importFrom wavethresh guyrot
 #' @importFrom AER ivreg
 #' @importFrom Hmisc Lag
@@ -25,6 +26,7 @@
 #' @S3method ardlDlmForecast default
 #' @S3method MASE default
 #' @S3method sortScore default
+#' @S3method finiteDLMauto default
 
 #' @export dlm
 #' @export polyDlm
@@ -36,6 +38,7 @@
 #' @export ardlDlmForecast
 #' @export MASE
 #' @export sortScore
+#' @export finiteDLMauto
 
 poly.dlm.tests = function(coef , y.t , design.z , tr.matrix , n , q , print = TRUE ){
   z = data.frame(array(1,(n-q)) , design.z )
