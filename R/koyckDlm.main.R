@@ -1,9 +1,9 @@
 koyckDlm.main = function(x , y , show.summary = TRUE){
   X.t_1 = Lag(x,+1)
   Y.t_1 = Lag(y,+1)
-  Y.t = y
+  y.t = y
   X.t = x
-  model = ivreg(Y.t ~ Y.t_1 + X.t | Y.t_1 + X.t_1)
+  model = ivreg(y.t ~ Y.t_1 + X.t | Y.t_1 + X.t_1)
   # Notice here that first we write full model and then link instrumental variable after the symbol "|"
   coefs = model$coefficients
   beta = coefs[3]

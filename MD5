@@ -1,10 +1,10 @@
-0da1d3daeac4b655cd8fea5f15093c50 *DESCRIPTION
+f1eb968541f2f7b35cfaf5ccf7ee044c *DESCRIPTION
 cf9556493d8c8997e0ceeb42e9110304 *NAMESPACE
 a7b7c6d2b8ed4807242d3dec0f8b1a4d *R/MASE.R
-5eb4ef656e64d8302d8a0e9cc2f5bd32 *R/MASE.default.R
+3fc0f37d881715944d0fe5862e406f02 *R/MASE.default.R
 a0efe73ec71007559b976c6fd22d704b *R/ardlDlm.R
 ceb6077a04c1f7484ec604fa0316e0ce *R/ardlDlm.default.R
-23775a8415eb602d066461ad8f6f6c3e *R/ardlDlm.main.R
+3b5d06411bbacbf3eb04bdb6017ecb27 *R/ardlDlm.main.R
 4b5949802b52d9961cdedb2b4239ba9e *R/ardlDlmForecast.R
 3dddd3dfe1958c1f0152634c17924432 *R/ardlDlmForecast.default.R
 0fe923ad42f9684aa439d8df1817880f *R/ardlDlmForecast.main.R
@@ -19,7 +19,7 @@ e393d6be7d0282dfdc80b4f6aa669752 *R/finiteDLMauto.default.R
 7c7cb1b3fe55d88b783cc989c42430f1 *R/finiteDLMauto.main.R
 f9479025821d461e8a8fc09c1c63d9b1 *R/koyckDlm.R
 ce5edce958900e3bcdd9681dc17c16f8 *R/koyckDlm.default.R
-7d7f96ba7488d0fb8ce285cec1b39378 *R/koyckDlm.main.R
+6abbe1b6229d82948584e5731ce33943 *R/koyckDlm.main.R
 8b6fab21a674a1d60c6fa06a89ab28ff *R/koyckDlmForecast.R
 f704aa2f442a66ff8a4d488f49b6a3dd *R/koyckDlmForecast.default.R
 15dc8572dc42dc6e88fefbb7506aa38f *R/koyckDlmForecast.main.R
@@ -34,10 +34,10 @@ a9eb938351c7ffdfdba8bcf5edc806c6 *R/polyDlmForecast.main.R
 5f02fa990a3f0cf65d9a96ad3b00ae1b *R/sortScore.default.R
 8877ebe74a49328fafb4d8fe8bd617e6 *R/sortScore.main.R
 aed33c4a4d7db7311cbf2a84cafe5025 *data/warming.RData
-7b301019d1fc5a0aa353d6730c44ce56 *man/MASE.Rd
+2b3b0d1c753bd1ac940d23d29c4a6359 *man/MASE.Rd
 74174ed6a282d098d27e4970841813e5 *man/ardlDlm.Rd
 f88ba379535e725ea35f5da28dc879f4 *man/ardlDlmForecast.Rd
-23dc9f6bf8bb1271f9a4822de548345b *man/dLagM-package.Rd
+7b23ba50e0b6023603e609cf759d42ab *man/dLagM-package.Rd
 f68d12dbd2156faaac2de4ac2b79b0ea *man/dlm.Rd
 a5c46a0dd871fb0f93d628f0acdf6e1a *man/dlmForecast.Rd
 d60f095f52a94928f80acde036094dcf *man/finiteDLMauto.Rd
