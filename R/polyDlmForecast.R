@@ -1,1 +1,1 @@
-polyDlmForecast <-function(model , x , h = 1 ) UseMethod("polyDlmForecast")
+polyDlmForecast <-function(model , x , h = 1 , interval = FALSE, alpha = 0.05 , nSim = 500 ) UseMethod("polyDlmForecast")

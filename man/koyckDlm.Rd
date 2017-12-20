@@ -2,10 +2,10 @@
 \alias{koyckDlm}
 
 \title{
-Implement finite autoregressive distributed lag model
+Implement distributed lag models with Koyck transformation
 }
 \description{
-A function that applies autoregressive distributed lag models of order (p , q) with one predictor.
+A function that applies distributed lag models with Koyck transformation with one predictor.
 }
 \usage{
 koyckDlm(x , y , show.summary = TRUE)

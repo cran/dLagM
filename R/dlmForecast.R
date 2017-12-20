@@ -1,1 +1,1 @@
-dlmForecast <- function(model , x , h = 1 ) UseMethod("dlmForecast")
+dlmForecast <- function(model , x , h = 1 , interval = TRUE , alpha = 0.05 , nSim = 500 ) UseMethod("dlmForecast")

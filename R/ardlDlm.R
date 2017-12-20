@@ -1,1 +1,1 @@
-ardlDlm <- function(x , y , p = 1 , q = 1 , show.summary = TRUE) UseMethod("ardlDlm")
+ardlDlm <- function(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , remove.p = NULL , remove.q = NULL , show.summary = TRUE) UseMethod("ardlDlm")

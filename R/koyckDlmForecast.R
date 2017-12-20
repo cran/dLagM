@@ -1,1 +1,1 @@
-koyckDlmForecast <- function( model , x , h = 1 ) UseMethod("koyckDlmForecast")
+koyckDlmForecast <- function( model , x , h = 1, interval = FALSE, alpha = 0.05 , nSim = 500  ) UseMethod("koyckDlmForecast")

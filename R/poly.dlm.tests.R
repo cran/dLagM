@@ -5,17 +5,20 @@
 #' @importFrom stats formula
 #' @importFrom stats ts
 #' @importFrom stats Box.test
+#' @importFrom stats simulate
+#' @importFrom stats as.formula
+#' @importFrom stats quantile
+#' @importFrom stats rnorm
+#' @importFrom stats var
 #' @importFrom wavethresh guyrot
 #' @importFrom AER ivreg
 #' @importFrom Hmisc Lag
+#' @importFrom plyr summarize
+#' @importFrom plyr is.discrete
 #' @importFrom dynlm dynlm
-
-#' @import stats
-#' @import wavethresh
-#' @import AER
-#' @import Hmisc
-#' @import dynlm
-
+#' @importFrom formula.tools get.vars
+#' @importFrom plyr is.formula
+#' 
 #' @S3method dlm default
 #' @S3method polyDlm default
 #' @S3method dlmForecast default

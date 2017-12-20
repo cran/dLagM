@@ -1,1 +1,1 @@
-dlm <- function(x , y , q , show.summary = TRUE) UseMethod("dlm")
+dlm <- function(formula , data , x , y , q , remove , show.summary = TRUE) UseMethod("dlm")

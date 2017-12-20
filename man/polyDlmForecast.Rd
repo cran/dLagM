@@ -8,7 +8,7 @@ Compute forecasts for polynomial distributed lag model
 A function that computes forecasts for polynomial distributed lag model with one predictor.
 }
 \usage{
-polyDlmForecast(model , x , h = 1)
+polyDlmForecast(model , x , h = 1 , interval = FALSE , alpha = 0.05 , nSim = 500)
 }
 \arguments{
   \item{model}{
@@ -20,10 +20,20 @@ polyDlmForecast(model , x , h = 1)
   \item{h}{
   The number of ahead forecasts.
   }  
-
+  \item{interval}{
+  If \code{TRUE}, \eqn{(1-\alpha)\%} confidence intervals for forecasts are displayed along with forecasts.
+  }
+  \item{alpha}{
+  Significance level of confidence interval. 
+  }
+  \item{nSim}{
+  An integer showing the number of Monte Carlo simulations used to compute confidence intervals for forecasts.
+  }
 }
 \details{
 This function directly uses the model formula and estimates of model coefficients to find forecast one-by-one starting from the one-step ahead forecast.
+
+Confidence intervals are found by the Monte Carlo approach using a Gaussian error distribution with zero mean and empirical variance of the dependent series.
 }
 
 \value{
@@ -41,6 +51,9 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 \examples{
 data(warming)
 model.poly = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-q = 2 , k = 2 , show.beta = TRUE ,  show.summary = TRUE)
-polyDlmForecast(model = model.poly , x = c(95, 98) , h = 1)
+                q = 2 , k = 2 , show.beta = TRUE ,  show.summary = TRUE)
+polyDlmForecast(model = model.poly , x = c(95, 98) , h = 1 , 
+                interval = FALSE)
+polyDlmForecast(model = model.poly , x = c(95, 98) , h = 1 , 
+                interval = TRUE, nSim = 100)
 }

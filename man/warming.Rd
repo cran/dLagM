@@ -5,7 +5,7 @@
 \description{This data set is composed of annual mean global warming series between 1997 and 2016 showing the change in global surface temperature relative to 1951-1980 average temperatures and the number of vehicles produced within the same time span over the globe. }
 
 \usage{data(warming)}
-\format{multiple time series}
+\format{Multiple time series}
 \source{
   Global Climate Center, NASA
   Organisation Internationale des Constructeurs d'Automobiles (OICA)

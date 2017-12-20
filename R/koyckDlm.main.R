@@ -4,7 +4,6 @@ koyckDlm.main = function(x , y , show.summary = TRUE){
   y.t = y
   X.t = x
   model = ivreg(y.t ~ Y.t_1 + X.t | Y.t_1 + X.t_1)
-  # Notice here that first we write full model and then link instrumental variable after the symbol "|"
   coefs = model$coefficients
   beta = coefs[3]
   phi = coefs[2]

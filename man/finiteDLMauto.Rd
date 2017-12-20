@@ -50,7 +50,7 @@ Retunrs a \code{data.frame} including the values of goodness-of-fit measures and
 \author{
 Agung Andiojaya
 
-Maintainer: Agung Andiojaya <a@gmail.com>
+Maintainer: Agung Andiojaya <agung.andiojaya@gmail.com>, Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 }
 
 \examples{

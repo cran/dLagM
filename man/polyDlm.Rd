@@ -32,21 +32,25 @@ polyDlm(x , y , q , k , show.beta = TRUE , show.summary = TRUE)
  
 }
 \details{
-When a decision made on a variable, some of the related variables would be effected through time. For example, when income tax rate is increased, this would reduce expenditures of consumers on goods and services, which reduces profits of suppliers, which reduces the demand for productive inputs, which reduces the profits of the input suppliers, and so on (Judge and Griffiths, 2000). These effects occur over the future time periods; hence, they are distributed across the time.    
+Finite distributed lag models, in general, suffer from the multicollinearity due to inclusion of the lags of the same variable in the model. To reduce the impact of this multicollinearity, a polynomial shape is imposed on the lag distribution (Judge and Griffiths, 2000). The resulting model is called Polynomial Distributed Lag model or Almond Distributed Lag Model. 
 
-In a distributed-lag model, the effect of an independent variable \eqn{X} on a dependent variable \eqn{Y} occurs over the time. Therefore, DLMs are dynamic models. A linear finite DLM with one independent variable is written as follows:
-
+Imposing a polynomial pattern on the lag distribution is equivalent to representing \eqn{\beta} parameters with another $k$th order polynomial model of time. So, the effect of change in \eqn{X_{t-s}} on the expected value of \eqn{Y_{t}} is represented as follows:
 
 \deqn{
-      Y_{t} = \alpha +\sum_{s = 0}^{q}\beta_{s}X_{t-s}+\epsilon_{t},
-      }
+  \frac{\partial E(Y_{t})}{\partial X_{t-s}}=\beta_{s}=\gamma_{0}+\gamma_{1}s+\gamma_{2}s^{2}+\cdots+\gamma_{k}s^{k}
+}
 
-where \eqn{\epsilon_{t}} is a stationary error term with \eqn{E(\epsilon_{t})=0, Var(\epsilon_{t})=\sigma^{2},Cov(\epsilon_{t},\epsilon_{s})=0}.
+where \eqn{s=0,\dots,q} (Judge and Griffiths, 2000). Then the model becomes:
+
+\deqn{
+  Y_{t} = \alpha +\gamma_{0}Z_{t0}+\gamma_{1}Z_{t1}+\gamma_{2}Z_{t2}+\cdots +\gamma_{k}Z_{tk}  + \epsilon_{t}.
+}
+
 }
 
 \value{
 
-\item{model}{An object of class \code{lm}. See the details of \code{href{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html}{lm}} function.}
+\item{model}{An object of class \code{lm}.}
 
 \item{designMatrix}{The design matrix composed of transformed z-variables.}
 

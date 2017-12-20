@@ -1,6 +1,4 @@
 koyckDlmForecast.main = function( model , x , h = 1 ){
-
-  
   forecasts = array(NA, (h+1))
   coefs = model$model$coefficients
   y = model$model$model[,1]

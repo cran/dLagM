@@ -2,10 +2,10 @@
 \alias{MASE}
 
 \title{
-Compute mean absolute scaled error (MASE)
+Compute mean absolute scaled error (MASE) for distributed lag models
 }
 \description{
-A function that computes mean absolute scaled error for fitted models.
+A function that computes mean absolute scaled error for fitted DLMs.
 }
 \usage{
 MASE(model, ...)
@@ -15,7 +15,7 @@ MASE(model, ...)
   Model object fitted for time series data. 
   }
   \item{...}{
-  Optionally more fitted models.
+  Optionally, more fitted models.
   } 
 
 }
@@ -32,7 +32,7 @@ MASE = mean(|q_{t}|)
 }
 (Hyndman and Koehler, 2006).
 
-Fitted models would be finite, polynomial, Koyck, ARDL DLMs, or linear model fitted with \code{lm()} function. This function also computes MASE values of different models when fed at the same time.
+Fitted models would be finite, polynomial, Koyck, ARDL DLMs, or linear model fitted with \code{lm()} function. This function also computes MASE values of multiple models when fed at the same time.
 }
 
 \value{
