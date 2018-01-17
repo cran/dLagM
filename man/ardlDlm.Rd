@@ -30,10 +30,10 @@ ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 ,
   An integer representing finite lag length.
   }  
   \item{remove.p}{
-  A matrix or vector showing the autoregressive lags to be removed from the full model for each independent series. Please see the details for the construction of this argument.
+  A matrix or vector showing the lags of independent series to be removed from the full model for each independent series. Please see the details for the construction of this argument.
   }
   \item{remove.q}{
-  A vector showing the lags of dependent series to be removed from the full model. Please see the details for the construction of this argument.
+  A vector showing the autoregressive lags to be removed from the full model. Please see the details for the construction of this argument.
   }
   \item{show.summary}{
   If \code{TRUE}, prints standard model summary for the model of interest.
@@ -51,9 +51,9 @@ The variable names in \code{formula} must match with the names of variables in \
 
 The argument \code{data} contains dependent series and independent series. 
 
-The argument \code{remove.p} is used to specify which autoregressive lags of each independent series will be removed from the full model. Each row of \code{remove.p} includes the numbers of lags to be removed in its columns and the rest of the elements should be set to \code{NA}. 
+The argument \code{remove.p} is used to specify which lags of each independent series will be removed from the full model. Each row of \code{remove.p} includes the numbers of lags to be removed in its columns and the rest of the elements should be set to \code{NA}. 
 
-The argument \code{remove.q} is used to specify the lag of dependent series to be removed from the full model. 
+The argument \code{remove.q} is used to specify the autoregressive lags of dependent series to be removed from the full model. 
 
 }
 
@@ -63,9 +63,9 @@ The argument \code{remove.q} is used to specify the lag of dependent series to b
 
 \item{order}{A vector composed of \eqn{p} and \eqn{q} orders.}
 
-\item{removed.p}{A matrix or vector showing the autoregressive lags to be removed from the full model.}
+\item{removed.p}{A matrix or vector showing the lags of independent series to be removed from the full model.}
 
-\item{removed.q}{A vector showing the lags of dependent series to be removed from the full model.}
+\item{removed.q}{A vector showing the autoregressive lags to be removed from the full model.}
 
 \item{formula}{Model formula of the fitted model. This is returned if multiple independent series are entered.}
 

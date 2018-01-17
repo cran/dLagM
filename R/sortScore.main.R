@@ -8,4 +8,5 @@ sortScore.main <- function(x, score){
   } else {
     warning("The argument score only accepts valid arguments aic, bic, or mase.")
   }
+  return(x)
 }

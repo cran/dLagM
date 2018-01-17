@@ -21,7 +21,7 @@ dlm.default <-
       res = dlm.main(x = x , y = y , q = q , remove = remove , show.summary = show.summary , type = 1)
       
     } else if ((is.null(formula) == FALSE) & (is.null(data) == FALSE)){
-      if (is.formula(formula)== FALSE){
+      if (plyr::is.formula(formula)== FALSE){
         stop("You must enter a formula object since you do not specify dependent and independent series!")
       }
       if (is.data.frame(data)== FALSE){

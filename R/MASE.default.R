@@ -8,16 +8,14 @@ MASE.default <-
       m = length(models)
       for (j in 1:m){
         if ((class(models[[j]])[1] == "polyDlm") | (class(models[[j]])[1] == "dlm") | (class(models[[j]])[1] == "koyckDlm") | (class(models[[j]])[1] == "ardlDlm")){
-          Y.t = models[[j]]$model$model$y.t
-          fitted = models[[j]]$model$fitted.values
+          Y.t = as.vector(models[[j]]$model$model[,1])
+          fitted = as.vector(models[[j]]$model$fitted.values)
         } else if (class(models[[j]])[1] == "lm"){
-          Y.t = models[[j]]$model[,1]
-          fitted = models[[j]]$fitted.values
+          Y.t = as.vector(models[[j]]$model[,1])
+          fitted = as.vector(models[[j]]$fitted.values)
         } else {
-          stop("MASE function works for lm, dlm, polyDlm, koyckDlm, and ardlDlm objects. Please make sure that you are sending model object directly or send a bunch of these objects to the function.")
+          stop("MASE function works for lm, dlm, polyDlm, koyckDlm, and ardlDlm objects. Please make sure that you are sending model object directly or send a bunch of model objects to the function.")
         }
-        # Y.t = models[[j]]$model$y.t
-        # fitted = models[[j]]$fitted.values
         n = length(fitted)
         e.t = Y.t - fitted
         sum = 0 
@@ -37,11 +35,11 @@ MASE.default <-
       MASE
     } else { # Only one model
       if ((class(model)[1] == "polyDlm") | (class(model)[1] == "dlm") | (class(model)[1] == "koyckDlm") | (class(model)[1] == "ardlDlm")){
-        Y.t = model$model$model$y.t
-        fitted = model$model$fitted.values
+        Y.t = as.vector(model$model$model[,1])
+        fitted = as.vector(model$model$fitted.values)
       } else if (class(model)[1] == "lm"){
-        Y.t = model$model[,1]
-        fitted = model$fitted.values
+        Y.t = as.vector(model$model[,1])
+        fitted = as.vector(model$fitted.values)
       } else {
         stop("MASE function works for lm, dlm, polyDlm, koyckDlm, and ardlDlm objects. Please make sure that you are sending model object directly or send one of these objects to the function.")
       }

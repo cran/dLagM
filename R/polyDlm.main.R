@@ -26,7 +26,7 @@ polyDlm.main = function(x , y , q , k , show.beta = TRUE , show.summary = TRUE){
   z = data.frame(y.t, design.z)
   colnames(z) = c("y.t" , design.z.colnames)
   model = lm(y.t ~ ., data = z)
-  
+  model$call = "Y ~ (Intercept) + X.t"
   if (show.summary == TRUE){
     print(summary(model))
   }

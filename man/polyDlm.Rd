@@ -24,7 +24,7 @@ polyDlm(x , y , q , k , show.beta = TRUE , show.summary = TRUE)
   An integer representing order of polynomial distributed lags.
   }
   \item{show.beta}{
-  If \code{TRUE}, generates original beta parameters and associate t-tests and prints the results.
+  If \code{TRUE}, generates original beta parameters and associated t-tests and prints the results.
   }
 \item{show.summary}{
   If \code{TRUE}, prints standard model summary for the model of interest.

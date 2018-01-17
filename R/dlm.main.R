@@ -22,10 +22,11 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
     colnames(design) = design.colnames
     modelStr = paste0(modelStr, " + x.",(i-3))
     model = lm(y.t ~ . , design )
-    output = list(model = model, designMatrix = design , q = q)
+    output = list(model = model, designMatrix = design , q = q , removed = remove)
+    model$call = "Y ~ X"
   } else if (type == 2){
     n=nrow(data)
-    vars = get.vars(formula)
+    vars = formula.tools::get.vars(formula)
     
     dep = vars[1] #get the name of dependent variable as a string
     indeps = vars[2:length(vars)] # get the names of independents variables
@@ -95,6 +96,7 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
     colnames(design) = c(dep , design.colnames[1:(length(design)-1)])
     model = lm(formula(substr(modelStr, 1, nchar(modelStr)-3) ) , design )
     output = list(model = model, designMatrix = design , k = (length(vars) - 1) , q = q , removed = remove , formula = formula , data = data)
+    model$call = toString(formula)
   }
   
   if (show.summary == TRUE){

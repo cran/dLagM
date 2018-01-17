@@ -1,36 +1,41 @@
-finiteDLMauto.main <- function(x, y, q.min, q.max, k.order, model.type, error.type, trace){
+finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model.type, error.type, trace, type){
   #set parameter value
   
-  if(is.null(q.min)){
-    start = 1
-  }else{
-    start = q.min
-  }
-  if(is.null(q.max)){
+  start = q.min
+  
+  if(q.max > 10){
     q.max = 10
   }
   
   et = tolower(error.type)
   mt = tolower(model.type)
   
-  #set data frame to store the masurement value
+  #set data frame to store the measurement value
   df = data.frame(1,2,3,4,5,6)
-  
+  if (type == 1){
+    n = length(x)
+  } else if (type == 2){
+    n = nrow(data)
+  }
   if(mt == "dlm"){
-    if (abs((q.max + 1) - length(x)) > 10){
+    if (abs((q.max + 1) - n) > 10){
       end = q.max
     } else{
-      end = length(x) - 11
+      end = n - 11
     }
     names(df)[1]<-paste('q')
     for(i in start:end){
-      model = dLagM::dlm(x = as.vector(x), y = as.vector(y), q = i, show.summary = FALSE)
-      df[i-start+1,1] = i
-      df[i-start+1,2] = round(MASE(model$model),5)
-      df[i-start+1,3] = round(AIC(model$model),5)
-      df[i-start+1,4] = round(BIC(model$model),5)
-      df[i-start+1,5] = round(summary(model$model)$adj.r.squared,5)
-      df[i-start+1,6] = Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+      if (type == 1){
+        model = dLagM::dlm(x = as.vector(x), y = as.vector(y), q = i, show.summary = FALSE)
+      } else if (type == 2){
+        model = dLagM::dlm(formula = formula, data = data, q = i, show.summary = FALSE)
+      }
+      df[(i-start+1), 1] = i
+      df[(i-start+1), 2] = round(MASE(model$model),5)
+      df[(i-start+1), 3] = round(AIC(model$model),5)
+      df[(i-start+1), 4] = round(BIC(model$model),5)
+      df[(i-start+1), 5] = round(summary(model$model)$adj.r.squared,5)
+      df[(i-start+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else if(mt == "poly"){
     if(is.null(k.order) || k.order == 0){
@@ -42,12 +47,12 @@ finiteDLMauto.main <- function(x, y, q.min, q.max, k.order, model.type, error.ty
     names(df)[1]<-paste('q - k')
     for(i in start:end){
       model = dLagM::polyDlm(x = as.vector(x), y = as.vector(y), q = i, k = k.order, show.summary = FALSE, show.beta = FALSE)
-      df[i-start+1,1] = paste(i,k.order,sep = ' - ')
-      df[i-start+1,2] = round(MASE(model$model),5)
-      df[i-start+1,3] = round(AIC(model$model),5)
-      df[i-start+1,4] = round(BIC(model$model),5)
-      df[i-start+1,5] = round(summary(model$model)$adj.r.squared,5)
-      df[i-start+1,6] = Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+      df[(i-start+1), 1] = paste(i,k.order,sep = ' - ')
+      df[(i-start+1), 2] = round(MASE(model$model),5)
+      df[(i-start+1), 3] = round(AIC(model$model),5)
+      df[(i-start+1), 4] = round(BIC(model$model),5)
+      df[(i-start+1), 5] = round(summary(model$model)$adj.r.squared,5)
+      df[(i-start+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else{
     print("Model Type is not correctly specified or mistaken typed.")

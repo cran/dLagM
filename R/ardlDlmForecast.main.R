@@ -1,5 +1,8 @@
-ardlDlmForecast.main = function(model , x , h = 1 , type){
+ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
 # x must be a matrix of dimension (number of indep series) x h
+  if (is.null(epsilon) == TRUE){
+    epsilon = array(0, h)
+  }
   coefs = unlist(model$model$coefficients)
   design = unlist(model$model$model[nrow(model$model$model) , ]) # Get the last line of the design matrix
   p = model$order[1]
@@ -14,7 +17,7 @@ ardlDlmForecast.main = function(model , x , h = 1 , type){
     y.obs = forecasts[1:q]
     for (i in (q + 1): (h + q)){
       obs = unlist(c(1 , x.obs , y.obs))
-      forecasts[i] = as.vector(coefs) %*% obs
+      forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       x.obs = guyrot(x.obs,1)
       if (i != (h + q)){
         x.obs[1] = x[(i - q + 1)]
@@ -33,7 +36,7 @@ ardlDlmForecast.main = function(model , x , h = 1 , type){
     }
     for (i in (q + 1): (h + q)){
       obs = unlist(c(1 , t(x.obs) , y.obs))
-      forecasts[i] = as.vector(coefs) %*% obs
+      forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       for ( j in 1:k){
         x.obs[j, ] = guyrot(x.obs[j, ] , 1)
         if (i != (h + q)){ 
@@ -63,9 +66,8 @@ ardlDlmForecast.main = function(model , x , h = 1 , type){
     seq.q = 1:q 
     seq.q = seq.q[ ! seq.q %in% removed.q]
     for (i in (q + 1): (h + q)){
-      # x.obs = x.obs[which(is.na(x.obs) == FALSE)] 
       obs = c(1 ,  x.obs[which(is.na(x.obs) == FALSE)] , y.obs[seq.q])
-      forecasts[i] = as.vector(coefs) %*% obs
+      forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       x.obs = x.obsO
       for ( j in 1:k){
         x.obs[j, ] = guyrot(x.obs[j, ] , 1)

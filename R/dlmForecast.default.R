@@ -34,16 +34,15 @@ dlmForecast.default <-  function(model , x , h = 1 , interval = FALSE, alpha =0.
       res = dlmForecast.main(model = model , x = x , h = h , type = type)  
     } else {
       CI = data.frame(array(NA, dim = c(nSim , h) ))
+      frc = dlmForecast.main(model = model , x = x , h = h, type = type)$forecasts
       for ( i in 1:nSim){
-        eps = rnorm(h , 0 , sqrt(var(model$model$model[ , 1])))
-        
-        CI[ i , ] = dlmForecast.main(model = model , x = x , h = h, type = type)$forecasts + eps
+        eps = rnorm(h , 0 , sqrt(deviance(model$model)/df.residual(model$model)))
+        CI[ i , ] = dlmForecast.main(model = model , x = x , h = h, type = type, epsilon = eps)$forecasts
       }
       limits = matrix(NA, nrow = h , ncol = 2)
       for (j in 1:h){
-        limits[j , ] = quantile(CI[,j],type=8,prob=c(alpha,(1-alpha)))
+        limits[j , ] = quantile(CI[,j],type=8,prob=c(alpha/2,(1-alpha/2)))
       }
-      frc = dlmForecast.main(model = model , x = x , h = h, type = type)  
       forecasts = data.frame(limits[ , 1], frc , limits[ , 2])
       colnames(forecasts) = c("Lower","Estimate","Upper")
     

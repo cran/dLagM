@@ -1,17 +1,19 @@
-dlmForecast.main = function(model , x , h = 1 , type){
-  # if (interval == FALSE){
+dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
+    if (is.null(epsilon) == TRUE){
+      epsilon = array(0, h)
+    }
     forecasts = array(NA, h)
     coefs = model$model$coefficients
     n = nrow(model$model$model)
     m = ncol(model$model$model)
     if (type == 1){
       x.obs = model$model$model[n , 2:m] # The last row of design matrix
-      x.obs = guyrot(x.obs,1)
+      x.obs = wavethresh::guyrot(x.obs,1)
       x.obs[1] = x[1] 
       x.obs = as.vector(data.frame(1 , x.obs))
       for (i in 1:h){
         forecasts[i] = as.vector(coefs)%*%t(x.obs)
-        x.obs = guyrot(x.obs,1)
+        x.obs = wavethresh::guyrot(x.obs,1)
         if (i != h){
           x.obs[1] = 1
           x.obs[2] = x[(i+1)]
@@ -23,16 +25,16 @@ dlmForecast.main = function(model , x , h = 1 , type){
       x.obsG = array(NA , dim = c(k, q + 1))
       for (j in 1:k){
         x.obs = model$model$model[n , ((j+1)+q*(j-1)):(j*(q+1)+1)] # The last row of design matrix for each independent series
-        x.obs = guyrot(x.obs,1)
+        x.obs = wavethresh::guyrot(x.obs,1)
         x.obs[1] = x[j, 1] 
         x.obsG[j, ] = as.vector(t(x.obs))
       }
       x.obs = c(1 , as.vector(t(x.obsG)))
       for (i in 1:h){
-        forecasts[i] = as.vector(coefs)%*%x.obs
+        forecasts[i] = as.vector(coefs)%*%x.obs + epsilon[i]
         if (i != h){
           for (j in 1:k){
-            x.obsG[j ,] =  guyrot(x.obsG[j ,] , 1)  
+            x.obsG[j ,] =  wavethresh::guyrot(x.obsG[j ,] , 1)  
           }
           x.obsG[ , 1] = x[ , i + 1]
           x.obs = c(1 , as.vector(t(x.obsG)))
@@ -46,7 +48,7 @@ dlmForecast.main = function(model , x , h = 1 , type){
       fullModel = dlm(formula = model$formula, data = model$data , q = q , show.summary = FALSE)
       for (j in 1:k){
         x.obs = fullModel$model$model[nrow(fullModel$model$model) , ((j+1)+q*(j-1)):(j*(q+1)+1)] # The last row of design matrix for each independent series
-        x.obs = guyrot(x.obs,1)
+        x.obs = wavethresh::guyrot(x.obs,1)
         x.obs[1] = x[j, 1] 
         x.obsG[j, ] = as.vector(t(x.obs))
       }
@@ -57,10 +59,10 @@ dlmForecast.main = function(model , x , h = 1 , type){
       x.obs = c(1 , as.vector(t(x.obsG)))
       x.obs = x.obs[which(is.na(x.obs) == FALSE)]
       for (i in 1:h){
-        forecasts[i] = as.vector(coefs)%*%x.obs
+        forecasts[i] = as.vector(coefs)%*%x.obs + epsilon[i]
         if (i != h){
           for (j in 1:k){
-            x.obsO[j ,] =  guyrot(x.obsO[j ,] , 1)  
+            x.obsO[j ,] =  wavethresh::guyrot(x.obsO[j ,] , 1)  
           }
           x.obsG = x.obsO
           x.obsG[ , 1] = x[ , i + 1]
