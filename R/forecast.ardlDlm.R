@@ -1,8 +1,9 @@
-ardlDlmForecast.default <-
-  function( model , x , h = 1 , interval = FALSE, alpha =0.05 , nSim = 500 ){
+#' @export
+forecast.ardlDlm <-
+  function( model , x , h = 1 , interval = FALSE, level =0.95 , nSim = 500 ){
     
     options(warn=-1)
-    
+    alpha = 1 - level
     h = round(h)
     if (h < 0){
       stop("The number of forecasts must be a positive integer!")
@@ -13,7 +14,7 @@ ardlDlmForecast.default <-
         stop("The number of forecasts must be greater than or equal to the value of h!")
       }
     } else {
-      if ((is.null(model$removed.p) == TRUE) & (is.null(model$removed.q) == TRUE)){
+      if ((is.null(model$removed$p) == TRUE) & (is.null(model$removed$q) == TRUE)){
         type = 2
       } else {
         type = 3
@@ -24,10 +25,10 @@ ardlDlmForecast.default <-
     }
     if (interval == TRUE){
       if ((alpha < 0.0001) | (alpha > 0.9999)){
-        stop("Alpha must be in betweeen 0 and 1!")
+        stop("Confidence level must be in betweeen 0 and 1!")
       }
       if ((floor(nSim*alpha)<=1) | (ceiling(nSim*alpha)>= (nSim-2))){
-        stop("The value of alpha is not suitable for comutations!")
+        stop("The value of level is not suitable for computations!")
       }
     }
     if (interval == FALSE){
@@ -53,7 +54,7 @@ ardlDlmForecast.default <-
       res = list(forecasts = forecasts)
     }
     res$call = match.call()
-    class(res) = c("ardlDlmForecast" , "dLagM")
+    class(res) = c("forecast.ardlDlm" , "dLagM")
     res
     
   }

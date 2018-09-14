@@ -1,7 +1,9 @@
-polyDlmForecast.default = function(model , x , h = 1 , interval = FALSE, alpha =0.05 , nSim = 500){
+#' @export
+forecast.polyDlm = function(model , x , h = 1 , interval = FALSE, level = 0.95 , nSim = 500){
   
   options(warn=-1)
   h = round(h)
+  alpha = 1 - level
   if (h < 0){
     stop("The number of forecasts must be a positive integer!")
   }
@@ -9,11 +11,11 @@ polyDlmForecast.default = function(model , x , h = 1 , interval = FALSE, alpha =
     stop("The number of new observations must be greater than or equal to the value of h!")
   }
   if (interval == TRUE){
-    if ((alpha < 0.0001) | (alpha > 0.9999)){
-      stop("Alpha must be in betweeen 0 and 1!")
+    if ((level < 0.0001) | (level > 0.9999)){
+      stop("Confidence level must be in betweeen 0 and 1!")
     }
     if ((floor(nSim*alpha)<=1) | (ceiling(nSim*alpha)>= (nSim-2))){
-      stop("The value of alpha is not suitable for comutations!")
+      stop("The value of level is not suitable for computations!")
     }
   }
   if (interval == FALSE){
@@ -40,6 +42,6 @@ polyDlmForecast.default = function(model , x , h = 1 , interval = FALSE, alpha =
   }
   
   res$call = match.call()
-  class(res) = c("polyDlmForecast" , "dLagM")
+  class(res) = c("forecast.polyDlm" , "dLagM")
   res
 }

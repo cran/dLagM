@@ -1,1 +1,0 @@
-ardlDlmForecast <- function(model , x , h = 1, interval = FALSE, alpha =0.05 , nSim = 500 ) UseMethod("ardlDlmForecast")

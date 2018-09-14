@@ -1,1 +1,2 @@
-koyckDlm <- function(x , y ,  show.summary = TRUE) UseMethod("koyckDlm")
+#' @export
+koyckDlm <- function(x , y) UseMethod("koyckDlm")

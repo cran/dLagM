@@ -43,9 +43,9 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
     } else if (type == 3){
       k = model$k
       q = model$q
-      removed = as.matrix(model$removed)
+      removed = model$removed
       x.obsG = array(NA , dim = c(k, q + 1))
-      fullModel = dlm(formula = model$formula, data = model$data , q = q , show.summary = FALSE)
+      fullModel = dlm(formula = model$formula, data = model$data , q = q )
       for (j in 1:k){
         x.obs = fullModel$model$model[nrow(fullModel$model$model) , ((j+1)+q*(j-1)):(j*(q+1)+1)] # The last row of design matrix for each independent series
         x.obs = wavethresh::guyrot(x.obs,1)
@@ -54,7 +54,7 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
       }
       x.obsO = x.obsG
       for (j in 1:k){
-        x.obsG[j, (removed[j , ] + 1)] = NA
+        x.obsG[j, (removed[[j]] + 1)] = NA
       }
       x.obs = c(1 , as.vector(t(x.obsG)))
       x.obs = x.obs[which(is.na(x.obs) == FALSE)]
@@ -67,7 +67,7 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
           x.obsG = x.obsO
           x.obsG[ , 1] = x[ , i + 1]
           for (j in 1:k){
-            x.obsG[j, (removed[j , ] + 1)] = NA
+            x.obsG[j, (removed[[j]] + 1)] = NA
           }
           x.obs = c(1 , as.vector(t(x.obsG)))
           x.obs = x.obs[which(is.na(x.obs) == FALSE)]

@@ -56,11 +56,11 @@ Hyndman, R.J. and Koehler, A.B. (2006). Another look at measures of forecast acc
 data(warming)
 # Fit a bunch of polynomial DLMs
 model.poly1 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-                     q = 2 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+                     q = 2 , k = 2 , show.beta = TRUE)
 model.poly2 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-                      q = 3 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+                      q = 3 , k = 2 , show.beta = TRUE)
 model.poly3 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-                      q = 4 , k = 2 , show.beta = TRUE ,  show.summary = FALSE)
+                      q = 4 , k = 2 , show.beta = TRUE)
 MASE(model.poly1, model.poly2, model.poly3)
 
 # Fit a bunch of finite DLMs

@@ -1,1 +1,2 @@
+#' @export
 sortScore <- function(x, score = c("bic", "aic", "mase")) UseMethod("sortScore")

@@ -1,1 +1,2 @@
-ardlDlm <- function(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , remove.p = NULL , remove.q = NULL , show.summary = TRUE) UseMethod("ardlDlm")
+#' @export
+ardlDlm <- function(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , remove = NULL ) UseMethod("ardlDlm")

@@ -1,1 +1,2 @@
-dlm <- function(formula , data , x , y , q , remove , show.summary = TRUE) UseMethod("dlm")
+#' @export
+dlm <- function(formula , data , x , y , q , remove ) UseMethod("dlm")

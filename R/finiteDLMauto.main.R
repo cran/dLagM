@@ -1,8 +1,6 @@
 finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model.type, error.type, trace, type){
   #set parameter value
   
-  start = q.min
-  
   if(q.max > 10){
     q.max = 10
   }
@@ -24,18 +22,18 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
       end = n - 11
     }
     names(df)[1]<-paste('q')
-    for(i in start:end){
+    for(i in q.min:end){
       if (type == 1){
-        model = dLagM::dlm(x = as.vector(x), y = as.vector(y), q = i, show.summary = FALSE)
+        model = dLagM::dlm(x = as.vector(x), y = as.vector(y), q = i)
       } else if (type == 2){
-        model = dLagM::dlm(formula = formula, data = data, q = i, show.summary = FALSE)
+        model = dLagM::dlm(formula = formula, data = data, q = i)
       }
-      df[(i-start+1), 1] = i
-      df[(i-start+1), 2] = round(MASE(model$model),5)
-      df[(i-start+1), 3] = round(AIC(model$model),5)
-      df[(i-start+1), 4] = round(BIC(model$model),5)
-      df[(i-start+1), 5] = round(summary(model$model)$adj.r.squared,5)
-      df[(i-start+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+      df[(i-q.min+1), 1] = i
+      df[(i-q.min+1), 2] = round(MASE(model$model),5)
+      df[(i-q.min+1), 3] = round(AIC(model$model),5)
+      df[(i-q.min+1), 4] = round(BIC(model$model),5)
+      df[(i-q.min+1), 5] = round(summary(model$model)$adj.r.squared,5)
+      df[(i-q.min+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else if(mt == "poly"){
     if(is.null(k.order) || k.order == 0){
@@ -43,19 +41,18 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
     }else{
       k.order = k.order
     }
-    end = q.max
     names(df)[1]<-paste('q - k')
-    for(i in start:end){
-      model = dLagM::polyDlm(x = as.vector(x), y = as.vector(y), q = i, k = k.order, show.summary = FALSE, show.beta = FALSE)
-      df[(i-start+1), 1] = paste(i,k.order,sep = ' - ')
-      df[(i-start+1), 2] = round(MASE(model$model),5)
-      df[(i-start+1), 3] = round(AIC(model$model),5)
-      df[(i-start+1), 4] = round(BIC(model$model),5)
-      df[(i-start+1), 5] = round(summary(model$model)$adj.r.squared,5)
-      df[(i-start+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+    for(i in q.min:q.max){
+      model = dLagM::polyDlm(x = as.vector(x), y = as.vector(y), q = i, k = k.order, show.beta = FALSE)
+      df[(i-q.min+1), 1] = paste(i,k.order,sep = ' - ')
+      df[(i-q.min+1), 2] = round(MASE(model$model),5)
+      df[(i-q.min+1), 3] = round(AIC(model$model),5)
+      df[(i-q.min+1), 4] = round(BIC(model$model),5)
+      df[(i-q.min+1), 5] = round(summary(model$model)$adj.r.squared,5)
+      df[(i-q.min+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else{
-    print("Model Type is not correctly specified or mistaken typed.")
+    print("Model type is not correctly specified.")
   }
   
   #set the name for df variable:
@@ -75,7 +72,7 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
   }else if(et == 'radj'){
     df.ordered = df[order(df[,5],decreasing = T),]
   }else{
-    print("Method sepecified default: MASE, AIC, BIC, and Radj.")
+    print("Method is sepecified by default: MASE, AIC, BIC, and Radj.")
   }
   
   if(trace == FALSE){

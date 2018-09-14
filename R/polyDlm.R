@@ -1,1 +1,2 @@
-polyDlm <-function(x , y , q , k , show.beta = TRUE , show.summary = TRUE)UseMethod("polyDlm")
+#' @export
+polyDlm <-function(x , y , q , k , show.beta = TRUE)UseMethod("polyDlm")

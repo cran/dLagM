@@ -1,3 +1,4 @@
+#' @export
 sortScore.default <- 
   function(x, score = c("bic", "aic", "mase") ){
     

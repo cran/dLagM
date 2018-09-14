@@ -9,7 +9,7 @@ A function that applies autoregressive distributed lag models of order (p , q) w
 }
 \usage{
 ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , 
-         remove.p = NULL , remove.q = NULL , show.summary = TRUE)
+         remove = NULL )
 }
 \arguments{
   \item{formula}{A \code{formula} object for the model to be fitted. In the case of multiple predictor series, the model should be entered via a formula object. 
@@ -24,21 +24,14 @@ ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 ,
   A vector including the observations of dependent time series. This is not restricted to \code{ts} objects.
   }
   \item{p}{
-  An integer representing the order of autoregressive process.
+  An integer representing finite lag length.  
   }
   \item{q}{
-  An integer representing finite lag length.
+  An integer representing the order of autoregressive process.
   }  
-  \item{remove.p}{
-  A matrix or vector showing the lags of independent series to be removed from the full model for each independent series. Please see the details for the construction of this argument.
+  \item{remove}{
+  A list object having two elements showing the lags of independent series with \code{p} and the autoregressive lags with \code{q} to be removed from the full model for each independent series. Please see the details for the construction of this argument.
   }
-  \item{remove.q}{
-  A vector showing the autoregressive lags to be removed from the full model. Please see the details for the construction of this argument.
-  }
-  \item{show.summary}{
-  If \code{TRUE}, prints standard model summary for the model of interest.
-  }  
- 
 }
 \details{
 The autoregressive DLM is a flexible and parsimonious infinite distributed lag model. The model ARDL\eqn{(p, q)} is written as
@@ -51,10 +44,9 @@ The variable names in \code{formula} must match with the names of variables in \
 
 The argument \code{data} contains dependent series and independent series. 
 
-The argument \code{remove.p} is used to specify which lags of each independent series will be removed from the full model. Each row of \code{remove.p} includes the numbers of lags to be removed in its columns and the rest of the elements should be set to \code{NA}. 
+The argument \code{remove = list(p = list() , q = c())} is used to specify which lags of each independent series and the autoregressive lags of dependent series will be removed from the full model. Each element of the list \code{p} shows particular lags that will be removed from each independent series. To remove the main series from the model or to fit a model ARDL(0,q), include \code{0} within the elements of \code{p}. The element \code{q} is just a vector showing the autoregressive lags of dependent series to be removed. See the examples below for implementation details.
 
-The argument \code{remove.q} is used to specify the autoregressive lags of dependent series to be removed from the full model. 
-
+The standard function \code{summary()} prints model summary for the model of interest.
 }
 
 \value{
@@ -63,7 +55,7 @@ The argument \code{remove.q} is used to specify the autoregressive lags of depen
 
 \item{order}{A vector composed of \eqn{p} and \eqn{q} orders.}
 
-\item{removed.p}{A matrix or vector showing the lags of independent series to be removed from the full model.}
+\item{removed.p}{A list or vector showing the lags of independent series to be removed from the full model.}
 
 \item{removed.q}{A vector showing the autoregressive lags to be removed from the full model.}
 
@@ -88,24 +80,33 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 # Only one independent series
 data(warming)
 model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-y = warming$Warming, p = 1 , q = 1 , show.summary = TRUE)
+                     y = warming$Warming, p = 1 , q = 1 )
+summary(model.ardl)
 
 # Remove some lags
-rem.p = c(1)
-rem.q = c(1,3)
+# Remove some lags
+rem.p = c(0,1) # 0 removes the main effect of X.t
+rem.q = c(1,3) 
+remove = list(p = rem.p , q = rem.q)
 model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-y = warming$Warming, p = 2 , q = 3 , remove.p = rem.p, 
-remove.q = rem.q, show.summary = TRUE)
+                     y = warming$Warming, p = 2 , q = 3 , remove = remove)
+summary(model.ardl)
 
 # Multiple independent series
 data(M1Germany)
 data = M1Germany[1:144,]
 model.ardlDlm  = ardlDlm(formula = logprice ~ interest + logm1, 
-       data = data.frame(data) , p = 2 , q = 1 , show.summary = TRUE)
-       
-rem.p = matrix(c(1,2, NA), 3 , 1)
+                         data = data.frame(data) , p = 2 , q = 1 )
+summary(model.ardlDlm)
+
+rem.p = list(interest = c(0,2) , logm1 = c(0))
+# Remove the main series of interest and logm1 and the secont lag of 
+# interest from the model
 rem.q = c(1)
+remove = list(p = rem.p , q = rem.q)
+remove
 model.ardlDlm  = ardlDlm(formula = logprice ~ interest + logm1, 
-       data = data.frame(data) , p = 2 , q = 2 , remove.p = rem.p, 
-       remove.q = rem.q , show.summary = TRUE)
+                         data = data.frame(data) , p = 2 , q = 2 , 
+                         remove = remove)
+summary(model.ardlDlm) 
 }

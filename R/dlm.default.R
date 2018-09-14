@@ -1,5 +1,6 @@
+#' @export
 dlm.default <-
-  function(formula = NULL , data = NULL, x , y , q , remove = NULL , show.summary = TRUE){
+  function(formula = NULL , data = NULL, x , y , q , remove = NULL ){
     
     options(warn=-1)
     q = round(q)
@@ -18,7 +19,7 @@ dlm.default <-
           stop("The lag you want to remove is greater than the lag length!")
         }
       }
-      res = dlm.main(x = x , y = y , q = q , remove = remove , show.summary = show.summary , type = 1)
+      res = dlm.main(x = x , y = y , q = q , remove = remove , type = 1)
       
     } else if ((is.null(formula) == FALSE) & (is.null(data) == FALSE)){
       if (plyr::is.formula(formula)== FALSE){
@@ -28,11 +29,11 @@ dlm.default <-
         stop("Data must be entered as a data.frame object!")
       }
       if (is.null(remove) == FALSE){
-        if (is.matrix(remove) == FALSE){
-          stop("You must enter a matrix columns of which show the lags to be removed from each independent series on each row!")
+        if (is.list(remove) == FALSE){
+          stop("You must enter a list, elemts of which show the lags to be removed from each independent series on each row!")
         }
       }
-      res = dlm.main(formula = formula , data = data , q = q , remove = remove , show.summary = show.summary , type = 2)
+      res = dlm.main(formula = formula , data = data , q = q , remove = remove , type = 2)
       
     } else if ((is.null(formula) == TRUE) & (is.null(data) == FALSE)){
       if ((is.vector(x)== FALSE) | (is.vector(y)== FALSE)){

@@ -12,18 +12,22 @@ Provides time series regression models with one predictor using finite distribut
 \tabular{ll}{
 Package: \tab dLagM\cr
 Type: \tab Package\cr
-Version: \tab 1.0.2\cr
-Date: \tab 2017-01-13\cr
+Version: \tab 1.0.6\cr
+Date: \tab 2018-09-14\cr
 License: \tab GPL-3\cr
 }
 
-To implement time series regression with finite distributed lag models use \code{dlm} function.
+To implement time series regression with finite distributed lag models, use \code{dlm} function.
 
-To implement time series regression with polynomial distributed lag models use \code{polyDlm} function. 
+To implement time series regression with polynomial distributed lag models, use \code{polyDlm} function. 
 
-To implement time series regression with geometric distributed lag models with Koyck transformation use \code{koyckDlm} function. 
+To implement time series regression with geometric distributed lag models with Koyck transformation, use \code{koyckDlm} function. 
 
-To implement time series regression with autoregressive distributed lag models use \code{ardlDlm} function. 
+To implement time series regression with autoregressive distributed lag models, use \code{ardlDlm} function. 
+
+To produce forecasts for any of the models, use \code{forecast} function.
+
+To summarise the results of a model fitting, use \code{summary} function.
 }
 
 \author{

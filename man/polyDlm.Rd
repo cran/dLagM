@@ -8,7 +8,7 @@ Implement finite polynomial distributed lag model
 A function that applies polynomial distributed lag models with one predictor.
 }
 \usage{
-polyDlm(x , y , q , k , show.beta = TRUE , show.summary = TRUE)
+polyDlm(x , y , q , k , show.beta = TRUE)
 }
 \arguments{
   \item{x}{
@@ -26,10 +26,6 @@ polyDlm(x , y , q , k , show.beta = TRUE , show.summary = TRUE)
   \item{show.beta}{
   If \code{TRUE}, generates original beta parameters and associated t-tests and prints the results.
   }
-\item{show.summary}{
-  If \code{TRUE}, prints standard model summary for the model of interest.
-  }  
- 
 }
 \details{
 Finite distributed lag models, in general, suffer from the multicollinearity due to inclusion of the lags of the same variable in the model. To reduce the impact of this multicollinearity, a polynomial shape is imposed on the lag distribution (Judge and Griffiths, 2000). The resulting model is called Polynomial Distributed Lag model or Almond Distributed Lag Model. 
@@ -45,6 +41,8 @@ where \eqn{s=0,\dots,q} (Judge and Griffiths, 2000). Then the model becomes:
 \deqn{
   Y_{t} = \alpha +\gamma_{0}Z_{t0}+\gamma_{1}Z_{t1}+\gamma_{2}Z_{t2}+\cdots +\gamma_{k}Z_{tk}  + \epsilon_{t}.
 }
+
+The standard function \code{summary()} prints model summary for the model of interest.
 
 }
 
@@ -74,5 +72,6 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 \examples{
 data(warming)
 model.poly = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-q = 2 , k = 2 , show.beta = TRUE ,  show.summary = TRUE)
+q = 2 , k = 2 , show.beta = TRUE)
+summary(model.poly)
 }

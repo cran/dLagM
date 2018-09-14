@@ -1,6 +1,6 @@
-polyDlm.main = function(x , y , q , k , show.beta = TRUE , show.summary = TRUE){
+polyDlm.main = function(x , y , q , k , show.beta = TRUE ){
   n=length(x)
-  design  = dlm(x = x , y = y , q = q , show.summary = FALSE)$designMatrix
+  design  = dlm(x = x , y = y , q = q )$designMatrix
   tr.matrix = array(0, dim = c((q+1),(k+1)))
   design.z = array(0,dim=c(length((q+1):n),(k+1)))
   design.z.colnames = array(NA, (k+1))
@@ -27,9 +27,6 @@ polyDlm.main = function(x , y , q , k , show.beta = TRUE , show.summary = TRUE){
   colnames(z) = c("y.t" , design.z.colnames)
   model = lm(y.t ~ ., data = z)
   model$call = "Y ~ (Intercept) + X.t"
-  if (show.summary == TRUE){
-    print(summary(model))
-  }
   if (show.beta == TRUE){
     tests = poly.dlm.tests(coef = model$coefficients , tr.matrix = tr.matrix , y.t = y.t , design.z = design.z , n = n , q = q , print = TRUE )
     return(list(model = model, designMatrix = design.z, designMatrix.x = design, beta.coefficients = tests, transformation.matrix = tr.matrix))

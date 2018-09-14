@@ -1,7 +1,10 @@
-ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove.p , remove.q , show.summary = TRUE , type = 1){
+ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type = 1){
+  remove.p = remove$p
+  remove.q = remove$q
   if (type == 1){
     # y.t = ts(y)
     # X.t = ts(x)
+    remove.p = unlist(remove.p)
 
     data = ts(data.frame(y, x))
     colnames(data) = c("y.t" , "X.t")
@@ -18,6 +21,12 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove.p , remo
     for (i in seq.q){
       model.text = paste0(model.text , " + L(y.t," , i , ")")
       coef.names = c(coef.names, paste0("Y." , i))
+    }
+    
+    # remove the main effect if wanted
+    if (sum(remove.p == 0) > 0){ 
+      model.text <- gsub(" X.t \\+" , "" , model.text) 
+      coef.names <- coef.names[-2]
     }
 
     model.fit = dynlm( formula = as.formula(model.text) , data = data  )
@@ -38,7 +47,9 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove.p , remo
       model.text = paste0(model.text , " + " , indeps[j])
       coef.names = c(coef.names, paste0("X" , j , ".t"))
       seq.p = 1:p 
-      seq.p = seq.p[ ! seq.p %in% remove.p[j , ]]      
+      if (is.null(remove.p[[indeps[j]]]) == FALSE){
+        seq.p = seq.p[ ! seq.p %in% remove.p[[indeps[j]]] ]      
+      }
       for (i in seq.p){
         model.text = paste0(model.text , " + L(" , indeps[j] , "," , i , ")")
         coef.names = c(coef.names, paste0("X" , j , ".", i))
@@ -51,15 +62,18 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove.p , remo
       coef.names = c(coef.names, paste0("Y.", i))
     }
 
+    # remove the main effects if wanted
+    for ( i in 1:length(remove.p)){
+      if (sum(remove.p[[i]] == 0) > 0){ 
+        model.text <- gsub(paste0(indeps[i]," \\+") , "" , model.text) 
+        coef.names <- coef.names[-which(coef.names == paste0("X" , i , ".t"))]
+      }
+    }
+
     model.fit = dynlm( formula = as.formula(model.text) , data = data)
     names(model.fit$coefficients) = coef.names
-    output = list(model = model.fit , order = c(p , q) ,  removed.p = remove.p , removed.q = remove.q , formula = formula , data = data)
+    output = list(model = model.fit , order = c(p , q) ,  removed = remove , formula = formula , data = data)
     model.fit$call = paste0("Y ~ ", paste(coef.names , collapse = " + "))
   }
-  
-  if (show.summary == TRUE){
-    print(summary(model.fit))
-  }
-  
   return(output)
 }

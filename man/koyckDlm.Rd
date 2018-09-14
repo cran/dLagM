@@ -8,7 +8,7 @@ Implement distributed lag models with Koyck transformation
 A function that applies distributed lag models with Koyck transformation with one predictor.
 }
 \usage{
-koyckDlm(x , y , show.summary = TRUE)
+koyckDlm(x , y)
 }
 \arguments{
   \item{x}{
@@ -17,10 +17,6 @@ koyckDlm(x , y , show.summary = TRUE)
   \item{y}{
   A vector including the observations of dependent time series. This is not restricted to \code{ts} objects.
   }
-  \item{show.summary}{
-  If \code{TRUE}, prints standard model summary for the model of interest.
-  }  
- 
 }
 \details{
 
@@ -37,6 +33,8 @@ When we solve this equation for \eqn{Y_{t}}, we obtain Koyck DLM as follows:
 where \eqn{\delta_{1} = \alpha (1-\phi),\delta_{2}=\phi,\delta_{3}=\beta} and the random error after the transformation is \eqn{\nu_{t}=(\epsilon_{t}-\phi \epsilon_{t-1})} (Judge and Griffiths, 2000).
 
 Then, instrumental variables estimation is employed to fit the model.
+
+The standard function \code{summary()} prints model summary for the model of interest.
 }
 
 
@@ -63,5 +61,6 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 \examples{
 data(warming)
 model.koyck = koyckDlm(x = warming$NoMotorVehicles , 
-y = warming$Warming , show.summary = TRUE)
+                       y = warming$Warming)
+summary(model.koyck)                       
 }

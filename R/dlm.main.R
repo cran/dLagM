@@ -1,7 +1,13 @@
-dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , type = 1){
-  
+dlm.main <- function(formula , data , x , y , q , remove , type = 1){
+  remove.main = FALSE
+  remove.original = remove
   if (type == 1){
-    n=length(x)
+    remove = unlist(remove)
+    if (sum(remove == 0) > 0){ 
+      remove.main = TRUE
+      remove = remove[which(remove != 0)]
+    }
+    n = length(x)
     r = length(remove)
     design = array(NA, dim = c(length((q+1):n),(q+2-r)))
     design.colnames = array(NA, q+2-r)
@@ -21,38 +27,48 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
     design = data.frame(design)
     colnames(design) = design.colnames
     modelStr = paste0(modelStr, " + x.",(i-3))
+    
+    if (remove.main){ 
+      modelStr <- gsub(" x.t \\+" , "" , modelStr) 
+      design <- design[-2]
+    }
+    
     model = lm(y.t ~ . , design )
+    
     output = list(model = model, designMatrix = design , q = q , removed = remove)
     model$call = "Y ~ X"
   } else if (type == 2){
+    
     n=nrow(data)
     vars = formula.tools::get.vars(formula)
     
     dep = vars[1] #get the name of dependent variable as a string
     indeps = vars[2:length(vars)] # get the names of independents variables
-
     indepData = data[,indeps] # get the data for independent series
     if (length(vars) > 2){ # If the number of independent series is greater than 1
-     
       k = ncol(indepData) # the number of independent series
+      remove.main = array(FALSE , k)
       design = array(NA, dim = c(length((q+1):n) , (q+1) , k)) # the first dimension keeps the design matrix for each independent series
       design.colnames = array(NA, (k*q+k))
       modelStr = paste0(dep, " ~ ")
       depVar = data[(q+1):n , dep]
       count = 0
       design2 = list()
+      
       for (j  in 1:k){
-        
         count = count + 1
         design[ , 1 , j] = indepData[(q+1):n , j]
         design.colnames[count] = paste0(vars[j + 1] , ".t")
         modelStr = paste0(modelStr , vars[j + 1] , ".t + ")
         seq = 2:(q+1) 
-        if (is.null(remove) == FALSE){
-          seq = seq[ ! seq %in% ( remove[j , which(is.na(remove[ j , ]) == FALSE )]  + 1)] # remove the lags to be dropped from the list
+        if (is.null(remove[[indeps[j]]]) == FALSE){
+          if (sum(remove[[indeps[j]]] == 0) > 0){ 
+            remove.main[j] = TRUE
+            remove[[indeps[j]]] = remove[[indeps[j]]][which(remove[[indeps[j]]] != 0)]
+          }
+          seq = seq[ ! seq %in% ( remove[[indeps[j]]] + 1)] # remove the lags to be dropped from the list
         }
         count2 = 1 
-        
         for (i in seq){#2:(q+1)){
           count2 = count2 + 1
           count = count + 1
@@ -60,8 +76,15 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
           design.colnames[count] = paste0(vars[j + 1] , "." , (i-1))
           modelStr = paste0(modelStr, vars[j + 1] , "." , (i-1) , " + ")
         }
-        if (is.null(remove) == FALSE){# If there is something to remove, you will have columns with all NAs! Get rid of them.
+        if (is.null(remove[[indeps[j]]]) == FALSE){# If there is something to remove, you will have columns with all NAs! Get rid of them.
             design2[[j]] = design[ , colSums(is.na(design[ , , j])) < nrow(design[, , j]) , j]
+        } else {
+          design2[[j]] = design[ , , j]
+        }
+        if (remove.main[j]){ 
+          design2[[j]] = design2[[j]][ , -1]
+          design.colnames = design.colnames[which( design.colnames != paste0(vars[j + 1], ".t") )]
+          modelStr <- gsub(paste0(vars[j + 1] , ".t \\+") , "" , modelStr) 
         }
       }
       if (is.null(remove) == FALSE){
@@ -80,7 +103,14 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
       modelStr = paste0(modelStr , vars[2] , ".t + ")
       seq = 2:(q+1) 
       if (is.null(remove) == FALSE){
-        seq = seq[ ! seq %in% ( remove[1 , which(is.na(remove[ 1 , ]) == FALSE )]  + 1)] # remove the lags to be dropped from the list
+        if ( is.list(remove) == TRUE){
+          remove = unlist(remove)
+          if (sum(remove == 0) > 0){ 
+            remove.main = TRUE
+            remove = remove[which(remove != 0)]
+          }
+        }
+        seq = seq[ ! seq %in% ( remove[which(is.na(remove) == FALSE )]  + 1)] # remove the lags to be dropped from the list
       }
       count2 = 1 
       for (i in seq){
@@ -90,21 +120,19 @@ dlm.main = function(formula , data , x , y , q , remove , show.summary = TRUE , 
         design.colnames[count] = paste0(vars[2] , "." , (i-1))
         modelStr = paste0(modelStr, vars[2] , "." , (i-1) , " + ")
       }
+      if (remove.main){ 
+        modelStr <- gsub(" X1.t \\+" , "" , modelStr) 
+        design <- design[,-1]
+        design.colnames = design.colnames[-1]
+      }
     }
-      
+    design.colnames = design.colnames[which(!is.na(design.colnames))]
     design = data.frame(depVar , design)
     colnames(design) = c(dep , design.colnames[1:(length(design)-1)])
     model = lm(formula(substr(modelStr, 1, nchar(modelStr)-3) ) , design )
-    output = list(model = model, designMatrix = design , k = (length(vars) - 1) , q = q , removed = remove , formula = formula , data = data)
+    output = list(model = model, designMatrix = design , k = (length(vars) - 1) , q = q , removed = remove.original , formula = formula , data = data)
     model$call = toString(formula)
   }
-  
-  if (show.summary == TRUE){
-    print(summary(model))
-    ic = data.frame(AIC(model) , BIC(model))
-    colnames(ic) = c("AIC" , "BIC")
-    cat("AIC and BIC values for the model:\n")
-    print(ic)
-  }
+
   return(output)
 }

@@ -1,6 +1,8 @@
-koyckDlm.main = function(x , y , show.summary = TRUE){
-  X.t_1 = Lag(x,+1)
-  Y.1 = Lag(y,+1)
+koyckDlm.main = function(x , y){
+  X.t_1 = array(NA , length(x))
+  Y.1 = array(NA , length(y))
+  X.t_1[-1] = x[1:(length(x) - 1)] 
+  Y.1[-1] = y[1:(length(y) - 1)] 
   y.t = y
   X.t = x
   model = ivreg(y.t ~ Y.1 + X.t | Y.1 + X.t_1)
@@ -11,9 +13,5 @@ koyckDlm.main = function(x , y , show.summary = TRUE){
   geometric.coefficients = data.frame(alpha, beta , phi)
   rownames(geometric.coefficients) = "Geometric coefficients: "
   model$call = "Y ~ (Intercept) + Y.1 + X.t"
-  if (show.summary == TRUE){
-    print(summary(model))
-    print(geometric.coefficients)
-  }
   return(list(model = model, geometric.coefficients = geometric.coefficients))
 }

@@ -1,4 +1,5 @@
-polyDlm.default = function(x , y , q , k , show.beta = TRUE , show.summary = TRUE){
+#' @export
+polyDlm.default = function(x , y , q , k , show.beta = TRUE){
   
   options(warn=-1)
   
@@ -14,7 +15,7 @@ polyDlm.default = function(x , y , q , k , show.beta = TRUE , show.summary = TRU
     stop("The order of polynomial must be an integer greater than or equal to 1!")
   }
   
-  res = polyDlm.main(x , y , q , k , show.beta , show.summary )
+  res = polyDlm.main(x = x , y = y , q = q , k = k , show.beta = show.beta)
   res$call = match.call()
   class(res) = c("polyDlm" , "dLagM")
   res

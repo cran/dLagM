@@ -15,36 +15,13 @@
 #' @importFrom stats var
 #' @importFrom wavethresh guyrot
 #' @importFrom AER ivreg
-#' @importFrom Hmisc Lag
 #' @importFrom plyr summarize
 #' @importFrom plyr is.discrete
 #' @importFrom dynlm dynlm
 #' @importFrom formula.tools get.vars
 #' @importFrom plyr is.formula
 #' 
-#' @S3method dlm default
-#' @S3method polyDlm default
-#' @S3method dlmForecast default
-#' @S3method polyDlmForecast default
-#' @S3method koyckDlm default
-#' @S3method koyckDlmForecast default
-#' @S3method ardlDlm default
-#' @S3method ardlDlmForecast default
-#' @S3method MASE default
-#' @S3method sortScore default
-#' @S3method finiteDLMauto default
 
-#' @export dlm
-#' @export polyDlm
-#' @export dlmForecast
-#' @export polyDlmForecast
-#' @export koyckDlm
-#' @export koyckDlmForecast
-#' @export ardlDlm
-#' @export ardlDlmForecast
-#' @export MASE
-#' @export sortScore
-#' @export finiteDLMauto
 
 poly.dlm.tests = function(coef , y.t , design.z , tr.matrix , n , q , print = TRUE ){
   z = data.frame(array(1,(n-q)) , design.z )
