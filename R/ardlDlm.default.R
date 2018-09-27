@@ -49,8 +49,10 @@ ardlDlm.default <-
         if (is.list(remove.p) == FALSE){
           stop("You must enter a list to remove autoregressive parameters!")
         }
-        if (length(remove.p) > p){
-          stop("The number of autoregressive lags you want to remove is greater than the lag length!")
+        for ( i in 1:length(remove.p)){
+          if (length(remove.p[[i]]) > p){
+            stop(paste0("The number of autoregressive lags you want to remove is greater than the lag length for the series", names(remove.p)[i]) )
+          }
         }
       }
       if (is.null(remove.q) == FALSE){
