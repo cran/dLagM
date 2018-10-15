@@ -9,3 +9,6 @@
 
 ## Version 1.0.7 (26 September 2018)
   * A bug in pre-model fitting checks fixed.
+
+## Version 1.0.8 (15 September 2018)
+* A bug in the error messages of pre-model fitting checks for ARDL models fixed.

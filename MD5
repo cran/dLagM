@@ -1,9 +1,9 @@
-afc46e108bcc9b43dd72439f09b167a0 *DESCRIPTION
+7357bc856cf08b8c87c98911d47aee57 *DESCRIPTION
 c9c229e433421483e9f39457ff0495d9 *NAMESPACE
-53c331a7cde0d70e024b43c4bcdca96d *NEWS.md
+5469848038ad90b7388338068d019e3c *NEWS.md
 e2dc781a43c697b63945d26187bd790b *R/MASE.R
 766109235895f1bce08c7c9ac933f201 *R/ardlDlm.R
-0778707dcd5b74ce9e95a253f2b7cb92 *R/ardlDlm.default.R
+dca003ca025e4a97a92b92c488892806 *R/ardlDlm.default.R
 f7b0580a7e8f8c729b0d354b11779a73 *R/ardlDlm.main.R
 addda5635b5ac5ed2f05b7972e2319e5 *R/ardlDlmForecast.main.R
 ef28956b1481fab600f2cda023015ec1 *R/dlm.R
@@ -37,7 +37,7 @@ ebe0fdfdb9f70a3fcf74b59a8a90b7e3 *R/summary.dlm.R
 aed33c4a4d7db7311cbf2a84cafe5025 *data/warming.RData
 26f4be9c612b919647a6c001326a7748 *man/MASE.Rd
 8a838bf631b399f4a409891fe475da82 *man/ardlDlm.Rd
-0b8188cf0920c83f98c576f6477e7d4a *man/dLagM-package.Rd
+322286fdb702d488b2bd264229e60f3c *man/dLagM-package.Rd
 1b04f50b625867c7d0666cefc2e3a998 *man/dlm.Rd
 189be877734dc3d0d31bd6d84e73f826 *man/finiteDLMauto.Rd
 db43ed483699cc473ddc3811b4a4275e *man/forecast.Rd

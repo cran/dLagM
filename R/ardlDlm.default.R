@@ -20,18 +20,18 @@ ardlDlm.default <-
       }
       if (is.null(remove.p) == FALSE){
         if (is.list(remove.p) == TRUE){
-          stop("You must enter a vector or scalar to remove autoregressive parameters since you have only one independent series!")
+          stop("You must enter a vector or scalar to remove finite lags since you have only one independent series!")
         }
         if (length(remove.p) > p){
-          stop("The number of autoregressive lags you want to remove is greater than the lag length!")
+          stop("The number of lags you want to remove is greater than the finite lag length!")
         }
       }
       if (is.null(remove.q) == FALSE){
         if (is.matrix(remove.q) == TRUE){
-          stop("You must enter a vector or scalar for lags to remove lags from the dependent series!")
+          stop("You must enter a vector or scalar for autoregressive lags to remove from the dependent series!")
         }
         if (length(remove.q) > q){
-          stop("The number of lags you want to remove is greater than the lag length!")
+          stop("The number of autoregressive lags you want to remove is greater than the lag length!")
         }
       }
       res = ardlDlm.main( x = x , y = y , p = p , q = q , 
@@ -47,20 +47,20 @@ ardlDlm.default <-
       
       if (is.null(remove.p) == FALSE){
         if (is.list(remove.p) == FALSE){
-          stop("You must enter a list to remove autoregressive parameters!")
+          stop("You must enter a list to remove finite lags!")
         }
         for ( i in 1:length(remove.p)){
           if (length(remove.p[[i]]) > p){
-            stop(paste0("The number of autoregressive lags you want to remove is greater than the lag length for the series", names(remove.p)[i]) )
+            stop(paste0("The number of lags you want to remove is greater than the lag length for the series ", names(remove.p)[i]) )
           }
         }
       }
       if (is.null(remove.q) == FALSE){
         if (is.matrix(remove.q) == TRUE){
-          stop("You must enter a vector or scalar to remove lags from the dependent series!")
+          stop("You must enter a vector or scalar to remove autoregressive lags from the dependent series!")
         }
         if (length(remove.q) > q){
-          stop("The number of lags you want to remove is greater than the lag length!")
+          stop("The number of autoregressive lags you want to remove is greater than the lag length!")
         }
       }
       
