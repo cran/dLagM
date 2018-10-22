@@ -103,6 +103,16 @@ model.dlm = dlm(x = warming$NoMotorVehicles ,
                 remove = removed)
 summary(model.dlm)
 
+model.dlm = dlm(formula = Warming ~ NoMotorVehicles , 
+                data = warming , q = 2)
+summary(model.dlm)
+
+removed = list(x = c(0,3))
+model.dlm = dlm(formula = Warming ~ NoMotorVehicles , 
+                data = warming , q = 4,
+                remove = removed)
+summary(model.dlm)
+
 # Multiple independent series
 data(M1Germany)
 data = M1Germany[1:144,]

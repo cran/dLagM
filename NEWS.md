@@ -12,3 +12,8 @@
 
 ## Version 1.0.8 (15 September 2018)
 * A bug in the error messages of pre-model fitting checks for ARDL models fixed.
+
+## Version 1.0.9 (21 September 2018)
+* A bug in dlm() function fixed.
+* More examples added.
+* Removed the limitation on the maximum number of lags can be fitted with finiteDLMauto() function.
