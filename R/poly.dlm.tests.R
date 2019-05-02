@@ -1,18 +1,3 @@
-#' @importFrom stats lm
-#' @importFrom stats AIC
-#' @importFrom stats BIC
-#' @importFrom stats pt
-#' @importFrom stats formula
-#' @importFrom stats deviance
-#' @importFrom stats df.residual
-#' @importFrom stats residuals
-#' @importFrom stats ts
-#' @importFrom stats Box.test
-#' @importFrom stats simulate
-#' @importFrom stats as.formula
-#' @importFrom stats quantile
-#' @importFrom stats rnorm
-#' @importFrom stats var
 #' @importFrom wavethresh guyrot
 #' @importFrom AER ivreg
 #' @importFrom plyr summarize
@@ -20,7 +5,7 @@
 #' @importFrom dynlm dynlm
 #' @importFrom formula.tools get.vars
 #' @importFrom plyr is.formula
-#' 
+#' @import nardl
 
 
 poly.dlm.tests = function(coef , y.t , design.z , tr.matrix , n , q , print = TRUE ){

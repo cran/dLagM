@@ -15,7 +15,7 @@ dlm.default <-
         if (is.matrix(remove) == TRUE){
           stop("You must enter a vector or scalar for lags to remove since you have only one independent series!")
         }
-        if (length(remove) > q){
+        if (length(which(remove$x != -1)) > q){
           stop("The lag you want to remove is greater than the lag length!")
         }
       }

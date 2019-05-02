@@ -12,8 +12,8 @@ Provides time series regression models with one predictor using finite distribut
 \tabular{ll}{
 Package: \tab dLagM\cr
 Type: \tab Package\cr
-Version: \tab 1.0.10\cr
-Date: \tab 2018-10-22\cr
+Version: \tab 1.0.12\cr
+Date: \tab 2019-05-02\cr
 License: \tab GPL-3\cr
 }
 
@@ -39,6 +39,12 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 B.H. Baltagi. \emph{Econometrics}, Fifth Ed. Springer, 2011.
 
 R.C. Hill, W.E. Griffiths, G.G. Judge. \emph{Undergraduate Econometrics}. Wiley, 2000. 
+
+J. Soren, A.Q. Philips. "pss: Perform bounds test for cointegration and perform dynamic simulations."
+
+P.K. Narayan. The Saving and Investment Nexus for China: Evidence from Cointegration Tests. \emph{Applied Economics} 37(17):1979-1990, 2005.
+
+M.H. Pesaran, S. Yongcheol, R.J. Smith. Bounds testing approaches to the analysis of level relationships. \emph{Journal of Applied Econometrics} 16(3):289-326, 2001.
 }
 
 \keyword{distributed lag model, time series, regression model, polynomial lag, predictor}

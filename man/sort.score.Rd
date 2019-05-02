@@ -5,7 +5,7 @@
 Sort ACI, BIC and MASE scores
 }
 \description{
-A function that displays sorted AIC, BIC, and MASE scores.
+Displays sorted AIC, BIC, and MASE scores.
 }
 \usage{
 sortScore(x, score = c("bic", "aic", "mase"))

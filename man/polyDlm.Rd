@@ -5,7 +5,7 @@
 Implement finite polynomial distributed lag model
 }
 \description{
-A function that applies polynomial distributed lag models with one predictor.
+Applies polynomial distributed lag models with one predictor.
 }
 \usage{
 polyDlm(x , y , q , k , show.beta = TRUE)

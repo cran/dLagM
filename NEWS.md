@@ -17,3 +17,9 @@
 * A bug in dlm() function fixed.
 * More examples added.
 * Removed the limitation on the maximum number of lags can be fitted with finiteDLMauto() function.
+
+## Version 1.0.12 (29 April 2019)
+* ARDL output displays variable names instead of X and Ys.
+* Fixed a minor bug in ardlDlm().
+* It's possible to remove intercept from the ARDL and DL models.
+* Added the implementation of ARDL bound tests.

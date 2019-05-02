@@ -5,7 +5,7 @@
 Compute forecasts for distributed lag models
 }
 \description{
-A function that computes forecasts for the finite distributed lag models, autoregressive distributed lag models, Koyck transformation of distributed lag models, and polynomial distributed lag models.
+Computes forecasts for the finite distributed lag models, autoregressive distributed lag models, Koyck transformation of distributed lag models, and polynomial distributed lag models.
 }
 \usage{
 forecast(model , x , h = 1 , interval = FALSE, level = 0.95 , nSim = 500)

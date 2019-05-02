@@ -5,7 +5,7 @@
 Implement finite autoregressive distributed lag model
 }
 \description{
-A function that applies autoregressive distributed lag models of order (p , q) with one predictor.
+Applies autoregressive distributed lag models of order (p , q) with one predictor.
 }
 \usage{
 ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , 
@@ -44,7 +44,9 @@ The variable names in \code{formula} must match with the names of variables in \
 
 The argument \code{data} contains dependent series and independent series. 
 
-The argument \code{remove = list(p = list() , q = c())} is used to specify which lags of each independent series and the autoregressive lags of dependent series will be removed from the full model. Each element of the list \code{p} shows particular lags that will be removed from each independent series. To remove the main series from the model or to fit a model ARDL(0,q), include \code{0} within the elements of \code{p}. The element \code{q} is just a vector showing the autoregressive lags of dependent series to be removed. See the examples below for implementation details.
+The argument \code{remove = list(p = list() , q = c())} is used to specify which lags of each independent series and the autoregressive lags of dependent series will be removed from the full model. Each element of the list \code{p} shows particular lags that will be removed from each independent series. To remove the main series from the model or to fit a model ARDL(0,q), include \code{0} within the elements of \code{p}. The element \code{q} is just a vector showing the autoregressive lags of dependent series to be removed. 
+
+To remove the intercept from the model, if a \code{formula} is entered, just include "-1" in the model formula. Otherwise, include "-1" in the element \code{q} of the list \code{remove}. See the examples below for implementation details.
 
 The standard function \code{summary()} prints model summary for the model of interest.
 }
@@ -92,10 +94,22 @@ model.ardl = ardlDlm(x = warming$NoMotorVehicles,
                      y = warming$Warming, p = 2 , q = 3 , remove = remove)
 summary(model.ardl)
 
+# To remove intercept as well
+rem.q = c(1,3,-1) 
+remove = list(p = rem.p , q = rem.q)
+model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
+                     y = warming$Warming, p = 2 , q = 3 , remove = remove)
+summary(model.ardl)
+
 # Multiple independent series
 data(M1Germany)
 data = M1Germany[1:144,]
 model.ardlDlm  = ardlDlm(formula = logprice ~ interest + logm1, 
+                         data = data.frame(data) , p = 2 , q = 1 )
+summary(model.ardlDlm)
+
+# To remove intercept as well
+model.ardlDlm  = ardlDlm(formula = logprice ~ -1 + interest + logm1, 
                          data = data.frame(data) , p = 2 , q = 1 )
 summary(model.ardlDlm)
 

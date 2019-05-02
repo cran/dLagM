@@ -5,7 +5,7 @@
 Find the optimal lag length for finite DLMs
 }
 \description{
-A function that fits finite DLMs for a range of lag lengths and orders the fitted models according to a desired measure.
+Fits finite DLMs for a range of lag lengths and orders the fitted models according to a desired measure.
 }
 \usage{
 finiteDLMauto(formula , data, x, y, q.min = 1, q.max = 10, k.order = NULL, 

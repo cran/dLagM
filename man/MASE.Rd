@@ -5,7 +5,7 @@
 Compute mean absolute scaled error (MASE) for distributed lag models
 }
 \description{
-A function that computes mean absolute scaled error for fitted DLMs.
+Computes mean absolute scaled error for fitted DLMs.
 }
 \usage{
 MASE(model, ...)

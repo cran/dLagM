@@ -5,7 +5,7 @@
 Implement distributed lag models with Koyck transformation
 }
 \description{
-A function that applies distributed lag models with Koyck transformation with one predictor.
+Applies distributed lag models with Koyck transformation with one predictor.
 }
 \usage{
 koyckDlm(x , y)

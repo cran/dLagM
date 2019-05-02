@@ -30,7 +30,7 @@ ardlDlm.default <-
         if (is.matrix(remove.q) == TRUE){
           stop("You must enter a vector or scalar for autoregressive lags to remove from the dependent series!")
         }
-        if (length(remove.q) > q){
+        if (length(which(remove.q != -1)) > q){
           stop("The number of autoregressive lags you want to remove is greater than the lag length!")
         }
       }
@@ -59,7 +59,7 @@ ardlDlm.default <-
         if (is.matrix(remove.q) == TRUE){
           stop("You must enter a vector or scalar to remove autoregressive lags from the dependent series!")
         }
-        if (length(remove.q) > q){
+        if (length(which(remove.q != -1)) > q){
           stop("The number of autoregressive lags you want to remove is greater than the lag length!")
         }
       }
