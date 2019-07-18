@@ -103,7 +103,7 @@ forecast(model = model.dlm , x = x.new , h = 2 ,
 # lags 1 and 3 from "logm1"
 removed = list(interest = c(0,2), logm1 = c(1,3))
 removed
-model.dlm  = dlm(formula = logprice ~ interest + logm1 , 
+model.dlm  = dlm(formula = logprice ~ interest + logm1 -1, 
               data = data.frame(data) , q = 4 , remove = removed)
 
 x.new =  matrix(c(0.07 , 9.06 , 0.071 , 9.09 , 0.079 , 9.19 , 

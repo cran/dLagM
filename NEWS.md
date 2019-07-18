@@ -23,3 +23,7 @@
 * Fixed a minor bug in ardlDlm().
 * It's possible to remove intercept from the ARDL and DL models.
 * Added the implementation of ARDL bound tests.
+
+## Version 1.0.15 (17 July 2019)
+* A bug in forecast() function fixed. Now, function works smoothyl when the intercept is removed.
+* Added a ne wdataset called wheat.

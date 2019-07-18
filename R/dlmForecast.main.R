@@ -29,7 +29,11 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
         x.obs[1] = x[j, 1] 
         x.obsG[j, ] = as.vector(t(x.obs))
       }
-      x.obs = c(1 , as.vector(t(x.obsG)))
+      if (sum(names(model$model$coefficients) == "(Intercept)") == 1 ){
+        x.obs = c(1 , as.vector(t(x.obsG)))
+      } else {
+        x.obs = as.vector(t(x.obsG))
+      }
       for (i in 1:h){
         forecasts[i] = as.vector(coefs)%*%x.obs + epsilon[i]
         if (i != h){
@@ -37,7 +41,11 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
             x.obsG[j ,] =  wavethresh::guyrot(x.obsG[j ,] , 1)  
           }
           x.obsG[ , 1] = x[ , i + 1]
-          x.obs = c(1 , as.vector(t(x.obsG)))
+          if (sum(names(model$model$coefficients) == "(Intercept)") == 1 ){
+            x.obs = c(1 , as.vector(t(x.obsG)))
+          } else{
+            x.obs = as.vector(t(x.obsG))
+          }
         }
       }
     } else if (type == 3){
@@ -56,7 +64,11 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
       for (j in 1:k){
         x.obsG[j, (removed[[j]] + 1)] = NA
       }
-      x.obs = c(1 , as.vector(t(x.obsG)))
+      if (sum(names(model$model$coefficients) == "(Intercept)") == 1 ){
+        x.obs = c(1 , as.vector(t(x.obsG)))
+      } else {
+        x.obs = as.vector(t(x.obsG))
+      }
       x.obs = x.obs[which(is.na(x.obs) == FALSE)]
       for (i in 1:h){
         forecasts[i] = as.vector(coefs)%*%x.obs + epsilon[i]
@@ -69,7 +81,11 @@ dlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
           for (j in 1:k){
             x.obsG[j, (removed[[j]] + 1)] = NA
           }
-          x.obs = c(1 , as.vector(t(x.obsG)))
+          if (sum(names(model$model$coefficients) == "(Intercept)") == 1 ){
+            x.obs = c(1 , as.vector(t(x.obsG)))
+          } else{
+            x.obs = as.vector(t(x.obsG))
+          }
           x.obs = x.obs[which(is.na(x.obs) == FALSE)]
         }
       }
