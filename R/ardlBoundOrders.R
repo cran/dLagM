@@ -1,5 +1,5 @@
 #' @export
-ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC"), max.p = 15,  max.q = 15  ){
+ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC"), max.p = 15,  max.q = 15){
   if (is.null(data)) stop("Enter data by data argument.")
   if (is.null(formula)) stop("A formula object showing the dependent and indepdenent series must be entered.")
   
@@ -79,84 +79,20 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC"), 
           remP[[paste0("d" ,vars[j + 1])]] <- c((combs[i,j] + 1):max.p)
         }
       }
-      # print(combs[i,])
-      # print(c(rem.p , remP))
       modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = max.p , q = q , remove = list(p = c(rem.p , remP) ))  
       crit[i] <- sum(ic == "AIC") * AIC(modelFull$model) + (1 - sum(ic == "AIC") ) * BIC(modelFull$model)
-      # print(AIC(modelFull$model))
     }
     combs.p <- data.frame(combs[1:(nrow(combs)-1),],crit)
     colnames(combs.p)[ncol(combs.p)] <- "IC"
     p <- data.frame(combs[which(crit == min(crit) , arr.ind = TRUE), ])
     colnames(p) <- vars[2:NumVar] 
+    
     return( list(p = p , q = q , IC.table = crit.pq , min.IC = min(crit.pq , na.rm = TRUE) , IC.p = combs.p[order(combs.p$IC), ]) )
+    
   } else {
     p <- as.data.frame(t(rep(p , NumVar - 1)))
     colnames(p) <- vars[2:NumVar] 
-    return( list(p = p , q = q , IC.table = crit.pq, min.IC = min(crit.pq , na.rm = TRUE)) )
+      return( list(p = p , q = q , IC.table = crit.pq, min.IC = min(crit.pq , na.rm = TRUE)) )
   }
+  
 }
-
-
-
-# run.p <- TRUE
-# p <- 1
-# critOld <- 10000
-# # aAIC <- array(NA, dim= c(max.p, max.q))
-# # aBIC <- array(NA, dim= c(max.p, max.q))
-# while ((run.p) & (p < max.p)){#for (p in 1:max.p){#
-#   for (i in 1:NumVar){
-#     if (p > 2){ 
-#       rem.p[[vars[i] ]] <- c(0,2:(p-1))  
-#     }else {
-#       rem.p[[vars[i] ]] <- c(0)
-#     }
-#   }
-#   run.q <- TRUE
-#   q <- 1
-#   while ((run.q) & (q < max.q)){#for ( q in 1:max.q){#
-#     modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = p , q = q, remove = list(p = rem.p ))  
-#     if (ic == "AIC"){
-#       AICq <- AIC(modelFull$model)#aAIC[p,q] <- AIC(modelFull$model)
-#       if ( (AICq < critOld) & !is.infinite(AICq) ){
-#         critOld <- AIC(modelFull$model)
-#         print(critOld)
-#         save.q <- q
-#         q <- q + 1
-#       } else {
-#         run.q <- FALSE
-#         print(q)
-#       }
-#     } else if (ic == "BIC"){
-#       BICq <- BIC(modelFull$model)#aBIC[p,q] <- BIC(modelFull$model)
-#       if ( (BICq < critOld) & !is.infinite(BICq) ){
-#         critOld <- BIC(modelFull$model)
-#         save.q <- q
-#         q <- q + 1
-#       } else {
-#         run.q <- FALSE
-#       }
-#     }
-#   }
-#   modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = p , q = save.q , remove = list(p = rem.p ))  
-#   print(paste0("p part ", AIC(modelFull$model)))
-#   if (ic == "AIC"){
-#     AICp <- AIC(modelFull$model)#aAIC[p,q] <- AIC(modelFull$model)
-#     if ( (AICp < critOld) & !is.infinite(AICp) ){
-#       critOld <- AIC(modelFull$model)
-#       save.p <- p
-#       p <- p + 1
-#     } else {
-#       run.p <- FALSE
-#     }
-#   } else if (ic == "BIC"){
-#     BICp <- BIC(modelFull$model) #aBIC[p,q] <- BIC(modelFull$model) 
-#     if ( (BICp < critOld) & !is.infinite(BICp) ){
-#       critOld <- BIC(modelFull$model)
-#       save.p <- p
-#       p <- p + 1
-#     } else {
-#       run.p <- FALSE
-#     }
-#   }
-# }

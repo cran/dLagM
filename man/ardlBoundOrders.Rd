@@ -28,7 +28,7 @@ ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC"),
   }
 }
 \details{
- This function first assumes that all p-orders are equal for the short-run relationships and find the optimal p-order and autoregressive orders. Then, it finds the best subset of p-orders allowing them to change for each series in the short-run relationship part of the ARDL model under alternative hypothesis of ARDL bounds test. 
+ This function first assumes that all p-orders are equal for the short-run relationships and finds the optimal p-order and autoregressive orders. Then, it finds the best subset of p-orders allowing them to change for each series in the short-run relationship part of the ARDL model under alternative hypothesis of ARDL bounds test. 
 }
 
 \value{

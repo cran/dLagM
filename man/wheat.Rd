@@ -9,6 +9,8 @@
 
 \code{CO2..ppm.} column shows the global mean annual concentration of carbon dioxide (CO2) measured in parts per million (ppm).
 
+\code{CO2..tons} column shows the global mean annual carbon dioxide (CO2) emissions measured in tons.
+
 \code{HarvestedArea..million.ha.} column shows the annual harvested area in the world scale in million hectare.
 
 \code{Production..Mt.} column shows the annual world wheat production in million tons.

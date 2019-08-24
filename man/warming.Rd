@@ -1,8 +1,8 @@
 \name{warming}
 \alias{warming}
 \docType{data}
-\title{Global warming and vehicle prediction data}
-\description{This data set is composed of annual mean global warming series between 1997 and 2016 showing the change in global surface temperature relative to 1951-1980 average temperatures and the number of vehicles produced within the same time span over the globe. }
+\title{Global warming and vehicle production data}
+\description{This data set is composed of annual mean global warming series between 1997 and 2016 showing the change in global surface temperature relative to 1951-1980 average temperatures and the number of vehicles produced (in millions) within the same time span over the globe. }
 
 \usage{data(warming)}
 \format{Multiple time series}

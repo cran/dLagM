@@ -25,5 +25,12 @@
 * Added the implementation of ARDL bound tests.
 
 ## Version 1.0.15 (17 July 2019)
-* A bug in forecast() function fixed. Now, function works smoothyl when the intercept is removed.
-* Added a ne wdataset called wheat.
+* A bug in forecast() function fixed. Now, function works smoothly when the intercept is removed.
+* Added a new dataset called wheat.
+
+## Version 1.0.17 (13 August 2019)
+* An improvement in user interface.
+* An new function to implement standard deviation analysis for running correlations.
+* Added the CUSUM of squared recursive residuals plot to ARDL bounds testing statibiltiy diagnostics.
+* Added the RESET test to ARDL bounds testing diagnostics.
+* Enhanced the wheat dataset.

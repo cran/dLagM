@@ -35,6 +35,9 @@ where \eqn{\delta_{1} = \alpha (1-\phi),\delta_{2}=\phi,\delta_{3}=\beta} and th
 Then, instrumental variables estimation is employed to fit the model.
 
 The standard function \code{summary()} prints model summary for the model of interest.
+
+AIC/BIC of a fitted KOyck model is displayed by setting the \code{class} attribute of model to \code{lm}. See the example.
+
 }
 
 
@@ -62,5 +65,9 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 data(warming)
 model.koyck = koyckDlm(x = warming$NoMotorVehicles , 
                        y = warming$Warming)
-summary(model.koyck)                       
+summary(model.koyck)     
+
+attr(model.koyck$model,"class") = "lm"
+AIC(model.koyck$model)
+BIC(model.koyck$model)
 }

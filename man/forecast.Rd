@@ -12,7 +12,7 @@ forecast(model , x , h = 1 , interval = FALSE, level = 0.95 , nSim = 500)
 }
 \arguments{
   \item{model}{
-  An object of class \code{lm} including the fitted model with \code{ardl.dlm()} function.
+  A fitted model by one of \code{dlm(), koyckDlm(), ployDlm()} or \code{ardlDlm} functions.
   }
   \item{x}{
   A vector or matrix including the new observations of independent time series. This is not restricted to \code{ts} objects. Please see the details for construction of this argument.
