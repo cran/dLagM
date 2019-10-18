@@ -145,10 +145,10 @@ dlm.main <- function(formula , data , x , y , q , remove , type = 1){
         modelStr = paste0(modelStr, vars[2] , "." , (i-1) , " + ")
       }
       if (remove.main){ 
-        print(paste0(indeps ,".t \\+"))
-        print(modelStr)
+        # print(paste0(indeps ,".t \\+"))
+        # print(modelStr)
         modelStr <- gsub(paste0(indeps ,".t +") , "" , modelStr) 
-        print(modelStr)
+        # print(modelStr)
         design <- design[,-1]
         design.colnames = design.colnames[-1]
       }

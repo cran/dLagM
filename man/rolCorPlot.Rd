@@ -42,9 +42,6 @@ rolCorPlot(x , y , width, start = 1, level = 0.95, main = NULL,
 \value{
 
 \item{rolCor}{
-Percentiles of MC distribution of standard deviations of rolling correlations as the test limits.
-}
-\item{rolCor}{
   A matrix showing rolling correlations for each \code{width} on its columns.
 }
 \item{rolcCor.avr.filtered}{
@@ -54,7 +51,7 @@ Percentiles of MC distribution of standard deviations of rolling correlations as
   A vector showing unfiltered average rolling correlations.
 }
 \item{rolCor.sd}{
-  A vector showing standard deviations of rolling correlations for eech \code{width}.
+  A vector showing standard deviations of rolling correlations for each \code{width}.
 }
 \item{rawCor}{
   Pearson correlation between two series.

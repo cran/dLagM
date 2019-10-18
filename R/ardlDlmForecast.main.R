@@ -76,18 +76,21 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
     seq.q = seq.q[ ! seq.q %in% removed.q]
     for (i in (q + 1): (h + q)){
       if (sum(names(model$model$coefficients) == "(Intercept)") == 1 ){
-        obs = c(1 ,  x.obs[which(is.na(x.obs) == FALSE)] , y.obs[seq.q])
+        obs = c(1 ,  t(x.obs)[which(is.na(as.vector(t(x.obs))) == FALSE)] , y.obs[seq.q])
       } else {
-        obs = c(x.obs[which(is.na(x.obs) == FALSE)] , y.obs[seq.q])
+        obs = c(t(x.obs)[which(is.na(as.vector(t(x.obs))) == FALSE)] , y.obs[seq.q])
       }
       forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
+      
       x.obs = x.obsO
       for ( j in 1:k){
         x.obs[j, ] = guyrot(x.obs[j, ] , 1)
         if (i != (h + q)){ 
           x.obs[j , 1] = x[j , (i - q + 1)]
         }
-        x.obsO = x.obs
+      }
+      x.obsO = x.obs
+      for ( j in 1:k){
         if ( is.null(removed.p[[indeps[j]]]) == FALSE){
           x.obs[j , (removed.p[[indeps[j]]][which(is.na(removed.p[[indeps[j]]]) == FALSE) ] + 1) ] = NA
         }

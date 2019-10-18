@@ -10,11 +10,11 @@ rolCorPlot <- function(x , y , width, start = 1, level = 0.95, main = NULL, SDte
       plot(ts(rolCor[ , i], start = start), ylim=c(min(rolCor[ , i] , na.rm = TRUE) - 0.2 , max(rolCor[ , i] , na.rm = TRUE) + 0.05),
            lty = 1, main = main, ylab = "Rolling correlation")
     } else {
-      lines(ts(rolCor[ , i], start = start), lty = 1+i)
+      lines(ts(rolCor[ , i], start = start), lty = i)
     }
   }
   
-  legend("bottom",xpd = TRUE, horiz = TRUE, inset=c(0,0),bty = "n", lty=c(seq(2,length(width)+1,1)), legend = width, title="Width", cex = .8)
+  legend("bottom",xpd = TRUE, horiz = TRUE, inset=c(0,0),bty = "n", lty=c(seq(1,length(width),1)), legend = width, title="Width", cex = .8)
   
   rolcCor_avr_org <- apply(rolCor,1,mean, na.rm = TRUE)
   rolcCor_avr <- rolcCor_avr_org

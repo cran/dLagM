@@ -9,8 +9,9 @@ Fits finite DLMs for a range of lag lengths and orders the fitted models accordi
 }
 \usage{
 finiteDLMauto(formula , data, x, y, q.min = 1, q.max = 10, k.order = NULL, 
-model.type = c("dlm","poly"), error.type = c("MASE","AIC","BIC","radj"), 
-trace = FALSE)
+              model.type = c("dlm","poly"), error.type = c("MASE","AIC",
+                            "BIC","GMRAE", "MBRAE", "radj"), 
+              trace = FALSE)
 }
 \arguments{
   \item{formula}{A \code{formula} object for the model to be fitted. In the case of multiple predictor series, the model should be entered via a formula object.
@@ -36,7 +37,7 @@ trace = FALSE)
   The type of model to be fitted. If set to \code{dlm}, finite distributed lag models are fitted. If set to \code{poly}, polynomial distributed lag models are fitted. 
   }
   \item{error.type}{
-  The type of goodness-of-fit measure to be used for the selection of optimal lag length. If set to \code{MASE}, the optimal lag length is determined according to MASE. If set to \code{AIC}, the optimal lag length is determined according to AIC. If set to \code{BIC}, the optimal lag length is determined according to BIC. If set to \code{radj}, the optimal lag length is determined according to Adjusted R-square.
+  The type of goodness-of-fit measure to be used for the selection of optimal lag length. The optimal lag length is determined according to desired goodness-of-fit measure.
   }
   \item{trace}{
   If \code{TRUE}, prints all of the goodness-of-fit measures for all fitted models.
@@ -75,7 +76,7 @@ finiteDLMauto(x = warming$NoMotorVehicles , y = warming$Warming ,
 
 # Run the search over finite DLMs according to AIC values
 finiteDLMauto(x = warming$NoMotorVehicles , y = warming$Warming , 
-              q.min = 2, q.max = 8, model.type = "dlm", error.type = "AIC", 
+              q.min = 2, q.max = 8, model.type = "dlm", error.type = "MBRAE", 
               trace = TRUE)
 
 # Multiple independent series

@@ -8,8 +8,8 @@ Find optimal orders (lag structure) for ARDL bounds test
 Computes optimal orders (lag structure) for the short-run relationships and autoregressive part of the ARDL model prior to ARDL bounds test with the approach of Pesaran et al. (2001).
 }
 \usage{
-ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC"), 
-                max.p = 15,  max.q = 15  )
+ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC", "MASE", 
+               "GMRAE"), max.p = 15,  max.q = 15, FullSearch = FALSE  )
 }
 \arguments{
   \item{data}{
@@ -26,9 +26,12 @@ ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC"),
   \item{max.q}{
   Maximum auto-regressive order.
   }
+  \item{FullSearch}{
+  If \code{TURE}, a search over all possbilble models is implemented. See the details.
+  }
 }
 \details{
- This function first assumes that all p-orders are equal for the short-run relationships and finds the optimal p-order and autoregressive orders. Then, it finds the best subset of p-orders allowing them to change for each series in the short-run relationship part of the ARDL model under alternative hypothesis of ARDL bounds test. 
+If \code{FullSearch = FALSE}, this function first assumes that all p-orders are equal for the short-run relationships and finds the optimal p-order and autoregressive orders. Then, it finds the best subset of p-orders allowing them to change for each series in the short-run relationship part of the ARDL model under alternative hypothesis of ARDL bounds test. 
 }
 
 \value{
@@ -37,9 +40,9 @@ ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC"),
 
 \item{q}{The autoregressive order.}
 
-\item{IC.table}{The selected IC of all the considered models where all short-run relationship orders (p-orders) are equal.}
+\item{Stat.table}{The selected statistic of all the considered models where all short-run relationship orders (p-orders) are equal.}
 
-\item{IC.p}{The selected IC of all possible combinations of short-run relationship orders (p-orders). The reported lag structure is the one that gives the minimum IC among these combinations.}
+\item{Stat.p}{The selected statistic of all possible combinations of short-run relationship orders (p-orders). The reported lag structure is the one that gives the minimum value to the chosen statistic among these combinations.}
 
 }
 

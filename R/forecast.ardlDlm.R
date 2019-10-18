@@ -45,10 +45,10 @@ forecast.ardlDlm <-
       }
       frc = ardlDlmForecast.main(model = model , x = x , h = h , type = type)  
       forecasts = data.frame(limits[ , 1], frc , limits[ , 2])
-      colnames(forecasts) = c("Lower","Estimate","Upper")
+      colnames(forecasts) = c(paste0(level*100,"% LB"),"Forecast",paste0(level*100,"% UB"))
       
       if ((sum(forecasts[, 1 ] < forecasts[ , 2 ]) != nrow(forecasts)) | (sum(forecasts[, 3 ] > forecasts[ , 2 ]) != nrow(forecasts)) ){
-        stop("Monte Carlo approach used to find confidence intervals produced inappropriate resutls please increase 
+        stop("Monte Carlo approach used to find prediction intervals produced inappropriate resutls please increase 
              the number of simulattions and run the function again.")
       }
       res = list(forecasts = forecasts)

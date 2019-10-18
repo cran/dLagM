@@ -12,8 +12,8 @@ Provides time series regression models with one predictor using finite distribut
 \tabular{ll}{
 Package: \tab dLagM\cr
 Type: \tab Package\cr
-Version: \tab 1.0.17\cr
-Date: \tab 2019-07-30\cr
+Version: \tab 1.0.18\cr
+Date: \tab 2019-10-18\cr
 License: \tab GPL-3\cr
 }
 
@@ -55,6 +55,10 @@ M.H. Pesaran, S. Yongcheol, R.J. Smith. Bounds testing approaches to the analysi
 \concept{polynomial lag}
 \concept{ARDL bounds test}
 \concept{predictor}
+\concept{MASE}
+\concept{MRAE}
+\concept{GMRAE}
+\concept{MBMRAE}
 
 \seealso{
 \code{\link[dLagM]{dlm}}, \code{\link[dLagM]{polyDlm}}, \code{\link[dLagM]{koyckDlm}}, \code{\link[dLagM]{ardlDlm}}

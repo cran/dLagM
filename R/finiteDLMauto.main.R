@@ -5,7 +5,7 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
   et = tolower(error.type)
   mt = tolower(model.type)
  
-  results = data.frame(array(NA, dim = c((q.max - q.min + 1), 6))) # array(NA, dim = c((q.max - q.min + 1), 6))#data.frame(1,2,3,4,5,6)
+  results = data.frame(array(NA, dim = c((q.max - q.min + 1), 8))) # array(NA, dim = c((q.max - q.min + 1), 6))#data.frame(1,2,3,4,5,6)
   if (type == 1){
     n = length(x)
   } else if (type == 2){
@@ -22,8 +22,10 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
       results[(i-q.min+1), 2] = round(MASE(model$model),5)
       results[(i-q.min+1), 3] = round(AIC(model$model),5)
       results[(i-q.min+1), 4] = round(BIC(model$model),5)
-      results[(i-q.min+1), 5] = round(summary(model$model)$adj.r.squared,5)
-      results[(i-q.min+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+      results[(i-q.min+1), 5] = round(GMRAE(model$model),5)
+      results[(i-q.min+1), 6] = round(MBRAE(model$model),5)
+      results[(i-q.min+1), 7] = round(summary(model$model)$adj.r.squared,5)
+      results[(i-q.min+1), 8] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else if(mt == "poly"){
     if(is.null(k.order) || k.order == 0){
@@ -37,14 +39,16 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
       results[(i-q.min+1), 2] = round(MASE(model$model),5)
       results[(i-q.min+1), 3] = round(AIC(model$model),5)
       results[(i-q.min+1), 4] = round(BIC(model$model),5)
-      results[(i-q.min+1), 5] = round(summary(model$model)$adj.r.squared,5)
-      results[(i-q.min+1), 6] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
+      results[(i-q.min+1), 5] = round(GMRAE(model$model),5)
+      results[(i-q.min+1), 6] = round(MBRAE(model$model),5)
+      results[(i-q.min+1), 7] = round(summary(model$model)$adj.r.squared,5)
+      results[(i-q.min+1), 8] = stats::Box.test(model$model$residuals,type = "Ljung-Box")$p.value
     }
   }else{
     print("Model type is not correctly specified.")
   }
   results <- as.data.frame(results)
-  colnames(results) <- c("q - k", "MASE", "AIC" , "BIC" , "R.Adj.Sq" , "Ljung-Box")
+  colnames(results) <- c("q - k", "MASE", "AIC" , "BIC" , "GMRAE" , "MBRAE" , "R.Adj.Sq" , "Ljung-Box")
   
   #set the name for results variable:
   # names(results)[2]<-paste('MASE')
@@ -60,10 +64,14 @@ finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model
     results.ordered = results[order(results[,3]),]
   }else if(et == 'bic'){
     results.ordered = results[order(results[,4]),]
+  }else if(et == 'gmrae'){
+    results.ordered = results[order(results[,5]),]
+  }else if(et == 'mbrae'){
+    results.ordered = results[order(results[,6]),]
   }else if(et == 'radj'){
-    results.ordered = results[order(results[,5],decreasing = T),]
+    results.ordered = results[order(results[,7],decreasing = T),]
   }else{
-    print("Method is sepecified by default: MASE, AIC, BIC, and Radj.")
+    print("Method is sepecified by default: MASE, AIC, BIC, GMRAE, MBRAE, and Radj.")
   }
   
   if(trace == FALSE){

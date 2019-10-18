@@ -34,3 +34,9 @@
 * Added the CUSUM of squared recursive residuals plot to ARDL bounds testing statibiltiy diagnostics.
 * Added the RESET test to ARDL bounds testing diagnostics.
 * Enhanced the wheat dataset.
+
+## Version 1.0.18 (18 October 2019)
+* New goodness-of-fit measures implemented.
+* Added full search over all possile model to specify lag orders for ARDL bounds testing.
+* Added normality tests for the residuals in ARDL bounds testing.
+* Improved the output of ARDL bounds testing.

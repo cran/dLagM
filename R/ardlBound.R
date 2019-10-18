@@ -137,7 +137,8 @@ appendList <- function(list1, list2){
 }
 
 #' @export
-ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remove = NULL, autoOrder = FALSE , ic = c("AIC" , "BIC") , 
+ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remove = NULL, autoOrder = FALSE , 
+                      ic = c("AIC", "BIC", "MASE", "GMRAE") , 
                       max.p = 15,  max.q = 15, ECM = TRUE, stability = TRUE){
   if (is.null(data)) stop("Enter data by data argument.")
   if (is.null(formula)) stop("A formula object showing the dependent and indepdenent series must be entered.")
@@ -147,7 +148,7 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   
   if (is.null(p) | (autoOrder == TRUE) ){
     cat("Orders being calculated with max.p =", max.p , "and max.q =", max.q, "...\n\n")
-    orders <- ardlBoundOrders(data = data , formula = formula, ic = ic , max.p = max.p,  max.q = max.q )
+    orders <- ardlBoundOrders(data = data , formula = formula, ic = "AIC" , max.p = max.p,  max.q = max.q )
     cat("Autoregressive order:" , orders$q + 1, "and p-orders:" , unlist(orders$p) + 1 , "\n")
     cat("------------------------------------------------------", "\n")
     p <- data.frame(orders$q , orders$p ) + 1 
@@ -320,8 +321,19 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   print(bp)
   if (!is.na(bp$p.value)){
     if (bp$p.value < 0.05){
-      cat("the p-value of Breusch-Pagan test for the homoskedasticity of residuals: ", bp$p.value , "< 0.05!\n" )
+      cat("The p-value of Breusch-Pagan test for the homoskedasticity of residuals: ", bp$p.value , "< 0.05!\n" )
       # stop("Bounds test procedure is stopped due to significant heteroskedasticity in residuals.")
+    }
+  }
+  cat("------------------------------------------------------", "\n")
+  
+  sp <- NULL
+  sp <- shapiro.test(modelFull$model$residual) 
+  cat("\n Shapiro-Wilk test of normality of residuals:\n")
+  print(sp)
+  if (!is.na(sp$p.value)){
+    if (sp$p.value < 0.05){
+      cat("The p-value of Shapiro-Wilk test normality of residuals: ", sp$p.value , "< 0.05!\n" )
     }
   }
   cat("------------------------------------------------------", "\n")
@@ -380,12 +392,17 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     cat("------------------------------------------------------", "\n")
     cat("Error Correction Model Output: \n")
     summary(modelECM)
+    
+    cat("------------------------------------------------------", "\n")
+    cat("Long-run coefficients: \n")
+    print(modelFull$model$coefficients[2:NumVar])
+    cat(" ", "\n")
   }
   if (ECM){
-    return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp,
-             ECM = list(EC.t = ec, EC.model = modelECM$model , EC.beta = ecm.beta, EC.data = data.ecm) ) )  
+    return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp, sp = sp,
+             ECM = list(EC.t = ec, EC.model = modelECM$model , EC.beta = ecm.beta, EC.data = data.ecm), ARDL.model = modelFull$model ) )  
   } else {
-    return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp ) )  
+    return(list(model = list(modelNull = modelNull, modelFull = modelFull), ARDL.model = modelFull$model, F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp, sp = sp ) )  
   }
   
 }
