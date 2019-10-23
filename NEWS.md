@@ -40,3 +40,8 @@
 * Added full search over all possile model to specify lag orders for ARDL bounds testing.
 * Added normality tests for the residuals in ARDL bounds testing.
 * Improved the output of ARDL bounds testing.
+
+## Version 1.0.19 (24 October 2019)
+* Added a warning message.
+* Added new explanations to help document.
+* A bug fixed. 

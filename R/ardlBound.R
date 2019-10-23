@@ -147,6 +147,7 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   NumVar <- length(vars)
   
   if (is.null(p) | (autoOrder == TRUE) ){
+    cat(" ", "\n")
     cat("Orders being calculated with max.p =", max.p , "and max.q =", max.q, "...\n\n")
     orders <- ardlBoundOrders(data = data , formula = formula, ic = "AIC" , max.p = max.p,  max.q = max.q )
     cat("Autoregressive order:" , orders$q + 1, "and p-orders:" , unlist(orders$p) + 1 , "\n")

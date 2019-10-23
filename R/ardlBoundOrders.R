@@ -39,8 +39,8 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
         } else if (ic == "GMRAE"){
           IC <- GMRAE(modelFull)
         } 
-        if ( !is.nan(unlist(IC)) ){
-          crit[p,q] <- unlist(IC)
+        if ( !is.nan(IC) & !is.infinite(IC) ){
+          crit[p,q] <- IC
           q <- q + 1
         } else {
           run.q <- FALSE
@@ -57,7 +57,7 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
     min.IC <- which(crit == min(crit, na.rm = TRUE), arr.ind = TRUE)
     p <- min.IC[1]
     q <- min.IC[2]
-  
+
     # Find a different p for each of the variables
     # if ((p > 1) & (NumVar>2)){
     if (p == 1) p <- max.p

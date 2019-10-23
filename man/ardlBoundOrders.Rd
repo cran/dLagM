@@ -13,7 +13,7 @@ ardlBoundOrders(data = NULL , formula = NULL, ic = c("AIC", "BIC", "MASE",
 }
 \arguments{
   \item{data}{
-  A \code{data.frame} including all dependent and independent series. 
+  A \code{data.frame} including all dependent and independent series. Column names this \code{data.frame} must match the variable names in \code{formula}.
   }
   \item{formula}{A \code{formula} object showing the dependent and independent series. 
   }
