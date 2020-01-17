@@ -88,44 +88,47 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 
 \examples{
 # Only one independent series
-data(warming)
-model.dlm = dlm(x = warming$NoMotorVehicles , 
-                y = warming$Warming , q = 2)
+data(seaLevelTempSOI)
+model.dlm = dlm(x = seaLevelTempSOI$LandOcean,  
+                y = seaLevelTempSOI$GMSL , q = 5)
 summary(model.dlm)
+residuals(model.dlm)
+coef(model.dlm)
+fitted(model.dlm)
 
-removed = list(x = c(1,3))
-model.dlm = dlm(x = warming$NoMotorVehicles , 
-                y = warming$Warming , q = 5,
+removed = list(x = c(1))
+model.dlm = dlm(x = seaLevelTempSOI$LandOcean,  
+                y = seaLevelTempSOI$GMSL , q = 5,
                 remove = removed)
 summary(model.dlm)
 
 # Remove intercept as well
-removed = list(x = c(1,3,-1))
-model.dlm = dlm(x = warming$NoMotorVehicles , 
-                y = warming$Warming , q = 5,
+removed = list(x = c(1,-1))
+model.dlm = dlm(x = seaLevelTempSOI$LandOcean,  
+                y = seaLevelTempSOI$GMSL , q = 5,
                 remove = removed)
 summary(model.dlm)
 
-removed = list(x = c(0,1,3))
-model.dlm = dlm(x = warming$NoMotorVehicles , 
-                y = warming$Warming , q = 5,
+removed = list(x = c(0,1))
+model.dlm = dlm(x = seaLevelTempSOI$LandOcean,  
+                y = seaLevelTempSOI$GMSL , q = 5,
                 remove = removed)
 summary(model.dlm)
 
-model.dlm = dlm(formula = Warming ~ NoMotorVehicles , 
-                data = warming , q = 2)
+model.dlm = dlm(formula =  GMSL ~ LandOcean , 
+                 data = seaLevelTempSOI , q = 5)
 summary(model.dlm)
 
-removed = list(x = c(0,3))
-model.dlm = dlm(formula = Warming ~ NoMotorVehicles , 
-                data = warming , q = 4,
+removed = list(x = c(0,1))
+model.dlm = dlm(formula =  GMSL ~ LandOcean , 
+               data = seaLevelTempSOI , q = 5,
                 remove = removed)
 summary(model.dlm)
 
 # Remove intercept as well
-removed = list(x = c(0,3,-1))
-model.dlm = dlm(formula = Warming ~ NoMotorVehicles , 
-                data = warming , q = 4,
+removed = list(x = c(0,-1))
+model.dlm = dlm(formula =  GMSL ~ LandOcean , 
+                data = seaLevelTempSOI , q = 2,
                 remove = removed)
 summary(model.dlm)
 

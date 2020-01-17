@@ -9,7 +9,7 @@ dLagM
 You can install the **latest** version from
 [CRAN](https://cran.r-project.org/package=dLagM).
 
-```s
+```
 install.packages('dLagM', dependencies = TRUE)
 ```
 

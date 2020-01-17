@@ -1,5 +1,5 @@
 #' @export
-sortScore<- function(x, score = c("bic", "aic", "mase", "smape", "mape", "mrae", "gmrae", "mbrae")){
+sortScore <- function(x, score = c("bic", "aic", "mase", "smape", "mape", "mrae", "gmrae", "mbrae")){
   if (score == "aic"){
     print(x[with(x, order(AIC)),])
   } else if (score == "bic") {

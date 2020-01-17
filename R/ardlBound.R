@@ -99,16 +99,17 @@ cusumSq <- function(model, alpha = 0.05){
   # model = model1.1$ECM$EC.model
   
   Wr <- recresid(model, data = model$model, type = "Rec-CUSUM")
+
   k <- start(Wr)[1] - 1 #length(model$coefficients)
   t <- end(Wr)[1] + 1
   if (((t-k) %% 2) != 0){
-    n1 <- 0.5 * (t-k) - 1.5
-    n2 <- 0.5 * (t-k) - 0.5
+    n1 <- min( 0.5 * (t-k) - 1.5, 100)
+    n2 <- min( 0.5 * (t-k) - 0.5, 100)
     c01 <- table[which((table[,1] == n1)), which(table[1,] == alpha/2)]
     c02 <- table[which((table[,1] == n2)), which(table[1,] == alpha/2)]
     c0 <- mean(c(c01,c02))
   } else {
-    n <- 0.5 * (t-k)-1
+    n <- min ( 0.5 * (t-k)-1, 100)
     c0 <- table[which((table[,1] == n)), which(table[1,] == alpha/2)]
   }
   WrSq <- array(NA, length(Wr))
@@ -116,7 +117,7 @@ cusumSq <- function(model, alpha = 0.05){
   ub <- array(NA, length(Wr))
   for (i in 1:length(Wr)){
     WrSq[i] <- sum(Wr[1:i]^2)/sum(Wr^2)
-    lb[i] <- - c0 + (start(Wr)[1] + i - 1 - k)/(t-k)
+    lb[i] <- -c0 + (start(Wr)[1] + i - 1 - k)/(t-k)
     ub[i] <- c0 + (start(Wr)[1] + i - 1 - k)/(t-k)
   }
   plot(ts(WrSq, start = start(Wr)), ylim = c(min(lb)-0.1,max(ub)+0.1), ylab="CUSUM of squared residuals", main ="Recursive CUSUM of squares test")
@@ -142,7 +143,7 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
                       max.p = 15,  max.q = 15, ECM = TRUE, stability = TRUE){
   if (is.null(data)) stop("Enter data by data argument.")
   if (is.null(formula)) stop("A formula object showing the dependent and indepdenent series must be entered.")
-  
+
   vars <- all.vars(formula)
   NumVar <- length(vars)
   
@@ -153,7 +154,7 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     cat("Autoregressive order:" , orders$q + 1, "and p-orders:" , unlist(orders$p) + 1 , "\n")
     cat("------------------------------------------------------", "\n")
     p <- data.frame(orders$q , orders$p ) + 1 
-   
+
   }
   if (!is.data.frame(p)){
     p <- array(p , NumVar)
@@ -396,8 +397,14 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     
     cat("------------------------------------------------------", "\n")
     cat("Long-run coefficients: \n")
-    print(modelFull$model$coefficients[2:NumVar])
+    print(modelFull$model$coefficients[2:(NumVar+1)])
     cat(" ", "\n")
+    # text <- paste0("EC = " , names(modelFull$model$coefficients[2]), " - (")
+    # for ( i in 3:(NumVar+1)){
+    #   text <- paste0(text, "(", modelFull$model$coefficients[i]/modelFull$model$coefficients[2], " * ",
+    #                  names(modelFull$model$coefficients[i]) , ") + ")
+    # }
+    # cat(text, "\n")
   }
   if (ECM){
     return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp, sp = sp,

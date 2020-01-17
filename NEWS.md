@@ -45,3 +45,10 @@
 * Added a warning message.
 * Added new explanations to help document.
 * A bug fixed. 
+
+## Version 1.0.21 (17 January 2020)
+* Changed the output structure of DLMs.
+* Added straightforward calls to residuals(), coef(), and fitted() functions.
+* Added seaLevelTemp and sunspotTemp datasets
+* Updated the examples in the documentation.
+* Removed "start" argument from rolCorPlot() function which need ts objects now.

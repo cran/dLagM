@@ -66,42 +66,44 @@ Hyndman, R.J. and Koehler, A.B. (2006). Another look at measures of forecast acc
 
 
 \examples{
-data(warming)
+\dontrun{
+data(seaLevelTempSOI)
 # Fit a bunch of polynomial DLMs
-model.poly1 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly1 = polyDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, 
                      q = 2 , k = 2 , show.beta = TRUE)
-model.poly2 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly2 = polyDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, 
                       q = 3 , k = 2 , show.beta = TRUE)
-model.poly3 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly3 = polyDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, 
                       q = 4 , k = 2 , show.beta = TRUE)
 MASE(model.poly1, model.poly2, model.poly3)
 
 # Fit a bunch of finite DLMs
-model.dlm1 = dlm(x = warming$NoMotorVehicles , y = warming$Warming, q =2)
-model.dlm2 = dlm(x = warming$NoMotorVehicles , y = warming$Warming, q =3)
-model.dlm3 = dlm(x = warming$NoMotorVehicles , y = warming$Warming, q =4)
+model.dlm1 = dlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, q =2)
+model.dlm2 = dlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, q =3)
+model.dlm3 = dlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, q =4)
 MASE(model.dlm1, model.dlm2, model.dlm3)
 MBRAE(model.dlm1, model.dlm2, model.dlm3)
 GoF(model.dlm1, model.dlm2, model.dlm3)
 
 # Fit a linear model
-model.lm = lm(Warming ~ NoMotorVehicles , data = warming)
+model.lm = lm(GMSL ~ LandOcean , data = seaLevelTempSOI)
 MASE(model.lm)
 GoF(model.lm)
 
 # Fit a Koyck model
-model.koyck = koyckDlm(x = warming$NoMotorVehicles , y = warming$Warming )
+model.koyck = koyckDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL)
 MASE(model.koyck)
 GoF(model.koyck)
 
 # Fit a bunch of ARDLs
-model.ardl1 = ardlDlm(x = warming$NoMotorVehicles , y = warming$Warming, p=1, q=2)
-model.ardl2 = ardlDlm(x = warming$NoMotorVehicles , y = warming$Warming, p=2, q=2)
-model.ardl3 = ardlDlm(x = warming$NoMotorVehicles , y = warming$Warming, p=3, q=2)
+model.ardl1 = ardlDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, p=1, q=2)
+model.ardl2 = ardlDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, p=2, q=2)
+model.ardl3 = ardlDlm(x = seaLevelTempSOI$LandOcean, y = seaLevelTempSOI$GMSL, p=3, q=2)
 MASE(model.ardl1 , model.ardl2 , model.ardl3)
 GoF(model.ardl1 , model.ardl2 , model.ardl3)
 
 # Find MASEs of different model objects
 MASE(model.ardl1 , model.dlm1 , model.poly1, model.lm)
 GoF(model.ardl1 , model.dlm1 , model.poly1, model.lm)
+}
 }

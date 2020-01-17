@@ -114,12 +114,13 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 }
 
 \examples{
+\dontrun{
 data(M1Germany)
-data = M1Germany[1:144,]
+data <- M1Germany[1:144,]
 model <- ardlBound(data = data , formula = logprice ~ interest + logm1 , case = 2 , p = 2)
 
 # Let ardlBoundOrders() function find the orders
 model <- ardlBound(data = data , formula = logprice ~ interest + logm1 , case = 2 , 
-                    max.p = 2, max.q = 2)
-
+                    max.p = 3, max.q = 3)
+}
 }

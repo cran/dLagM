@@ -8,9 +8,9 @@ koyckDlm.default <-
       stop("Data series x and y both must be in a vector format!")
     }
   
-    res = koyckDlm.main(x , y)
-    res$call = match.call()
-    class(res) = c("koyckDlm" , "dLagM")
+    res <- koyckDlm.main(x , y)
+    res$call <- match.call()
+    class(res) <- c("koyckDlm" , "dLagM")
     res
     
   }

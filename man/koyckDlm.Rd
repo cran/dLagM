@@ -62,12 +62,13 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 }
 
 \examples{
-data(warming)
-model.koyck = koyckDlm(x = warming$NoMotorVehicles , 
-                       y = warming$Warming)
-summary(model.koyck)     
-
-attr(model.koyck$model,"class") = "lm"
-AIC(model.koyck$model)
-BIC(model.koyck$model)
+data(seaLevelTempSOI)
+model.koyck = koyckDlm(x = seaLevelTempSOI$LandOcean,  
+                       y = seaLevelTempSOI$GMSL)
+summary(model.koyck, diagnostics = TRUE)     
+residuals(model.koyck)
+coef(model.koyck)
+fitted(model.koyck)
+AIC(model.koyck)
+BIC(model.koyck)
 }

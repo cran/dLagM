@@ -92,10 +92,10 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
       model.text <- paste0(model.text, "-1")
     }
 
-    model.fit = dynlm( formula = as.formula(model.text) , data = data)
-    names(model.fit$coefficients) = coef.names
-    output = list(model = model.fit , order = c(p , q) ,  removed = remove , formula = formula , data = data)
-    model.fit$call = paste0(dep , " ~ ", paste(coef.names , collapse = " + "))
+    model.fit <- dynlm( formula = as.formula(model.text) , data = data)
+    names(model.fit$coefficients) <- coef.names
+    output <- list(model = model.fit , order = c(p , q) ,  removed = remove , formula = formula , data = data)
+    model.fit$call<- paste0(dep , " ~ ", paste(coef.names , collapse = " + "))
   }
   return(output)
 }

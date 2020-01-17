@@ -70,8 +70,12 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 }
 
 \examples{
-data(warming)
-model.poly = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
-q = 2 , k = 2 , show.beta = TRUE)
+data(seaLevelTempSOI)
+model.poly = polyDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL , 
+                     q = 4 , k = 2 , show.beta = TRUE)
 summary(model.poly)
+residuals(model.poly)
+coef(model.poly)
+fitted(model.poly)
+
 }

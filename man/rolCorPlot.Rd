@@ -8,21 +8,18 @@ PLot the rolling correlations
 Plots the rolling correlations along with other required statistics to visualise the approach of Gershunov et al. (2001) to test the significance of signal from rolling correlation analysis. 
 }
 \usage{
-rolCorPlot(x , y , width, start = 1, level = 0.95, main = NULL, 
+rolCorPlot(x , y , width, level = 0.95, main = NULL, 
            SDtest = TRUE, N = 500)
 }
 \arguments{
   \item{x}{
-   A numeric vector.
+   A ts object.
   }
   \item{y}{
-   A numeric vector.
+   A ts object.
   } 
   \item{width}{
   A numeric vector of window lengths of the rolling correlation analysis.
-  } 
- \item{start}{
-  The time of the first observation
   } 
  \item{level}{
   Confidence level for intervals.
@@ -77,6 +74,10 @@ Gershunov, A., Scheider, N., Barnett, T. (2001). Low-Frequency Modulation of the
 
 
 \examples{
+\dontrun{
 data(wheat)
-rolCorPlot(x = wheat[,2], y = wheat[,5] , start = 1960, width = c(7, 11, 15), level = 0.95, N = 100)
+prod.ts <-ts(wheat[,5], start = 1960)
+CO2.ts <- ts(wheat[,2], start = 1960)
+rolCorPlot(x = prod.ts, y = CO2.ts , width = c(7, 11, 15), level = 0.95, N = 50)
+}
 }

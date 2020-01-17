@@ -6,11 +6,11 @@ finiteDLMauto.default <- function(formula = NULL , data = NULL, x = NULL, y =NUL
   }
   
   if (is.null(model.type) == TRUE){
-    model.type = "dlm"
+    model.type <- "dlm"
   }
   
   if (is.null(error.type) == TRUE){
-    model.type = "AIC"
+    model.type <- "AIC"
   }
   
   if ((is.null(formula) == TRUE) | (is.null(data) == TRUE)){

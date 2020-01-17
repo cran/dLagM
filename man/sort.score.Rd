@@ -30,12 +30,13 @@ Maintainer: Cameron Doyle <cdoyle305@gmail.com>
 }
 
 \examples{
-data(warming)
-model.poly1 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+\dontrun{
+data(seaLevelTempSOI)
+model.poly1 = polyDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL , 
                      q = 2 , k = 2 , show.beta = TRUE)
-model.poly2 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly2 = polyDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL , 
                       q = 3 , k = 2 , show.beta = TRUE)
-model.poly3 = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly3 = polyDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL , 
                       q = 4 , k = 2 , show.beta = TRUE)
 
 aic = AIC(model.poly1$model, model.poly2$model, model.poly3$model)
@@ -47,5 +48,5 @@ sortScore(aic , score = "aic")
 sortScore(bic , score = "bic")
 sortScore(mase , score = "mase")
 sortScore(mbrae , score = "mbrae")
-
+}
 }

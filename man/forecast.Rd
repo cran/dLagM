@@ -52,15 +52,14 @@ Haydar Demirhan
 Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 }
 
-\examples{
+\examples{\dontrun{
 # Only one independent series
-data(warming)
+data(seaLevelTempSOI)
 #--- ARDL dlm ---
-model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-              y = warming$Warming, p = 1 , q = 1 )
-forecast(model = model.ardl , x = c(95, 98) , 
+model.ardl = ardlDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL, p = 1 , q = 1 )
+forecast(model = model.ardl , x = c(0.15, 0.45) , 
                 h = 2 , interval = FALSE)
-forecast(model = model.ardl , x = c(95, 98, 87) , 
+forecast(model = model.ardl , x = c(0.15, 0.45, 0.20) , 
                 h = 3 , interval = FALSE)
              
 # Multiple independent series
@@ -84,9 +83,9 @@ forecast(model = model.ardlDlm2 , x = x.new , h = 2 ,
                 interval = FALSE)  
                 
 #--- Finite dlm ---                
-model.dlm = dlm(x = warming$NoMotorVehicles , 
-                y = warming$Warming , q = 2)
-forecast(model = model.dlm , x = c(95 , 98, 101) , h = 3)
+model.dlm = dlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL,
+                q = 2)
+forecast(model = model.dlm , x = c(0.15, 0.45, 0.20) , h = 3)
 
 
 # Multiple independent series
@@ -118,15 +117,15 @@ x.new =  matrix(c(0.07 , 9.06 , 0.071 , 9.09, 0.08 , 9.12), ncol = 3,
 forecast(model = model.dlm , x = x.new , h = 3,  interval = FALSE)
 
 #--- Koyck dlm --- 
-model.koyck = koyckDlm(x = warming$NoMotorVehicles , 
-                       y = warming$Warming)
-forecast(model = model.koyck  , x = c(95, 98, 101), h = 3 , 
+model.koyck = koyckDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL)
+forecast(model = model.koyck  , x = c(0.15, 0.45, 0.20), h = 3 , 
                 interval = FALSE)
 
 #--- Polynomial dlm ---         
-model.poly = polyDlm(x = warming$NoMotorVehicles , y = warming$Warming , 
+model.poly = polyDlm(x = seaLevelTempSOI$LandOcean,  y = seaLevelTempSOI$GMSL, 
                 q = 2 , k = 2 , show.beta = TRUE)
-forecast(model = model.poly , x = c(95, 98) , h = 1 , 
+forecast(model = model.poly , x = c(0.15, 0.45) , h = 1 , 
                 interval = FALSE)
 
+}
 }

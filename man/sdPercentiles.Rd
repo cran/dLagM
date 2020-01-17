@@ -52,6 +52,6 @@ Gershunov, A., Scheider, N., Barnett, T. (2001). Low-Frequency Modulation of the
 
 
 \examples{
-sdPercentiles(n = 50, cor = 0.5, width = 5, N = 100, 
-              percentiles = c(.025, .975))
+# sdPercentiles(n = 50, cor = 0.5, width = 5, N = 50, 
+#              percentiles = c(.025, .975))
 }

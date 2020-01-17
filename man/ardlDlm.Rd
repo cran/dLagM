@@ -80,25 +80,28 @@ Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
 
 \examples{
 # Only one independent series
-data(warming)
-model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-                     y = warming$Warming, p = 1 , q = 1 )
-summary(model.ardl)
 
-# Remove some lags
+data(seaLevelTempSOI)
+model.ardl = ardlDlm(x = seaLevelTempSOI$LandOcean,  
+                     y = seaLevelTempSOI$GMSL, p = 1 , q = 1 )
+summary(model.ardl)
+# residuals(model.ardl)
+# coef(model.ardl)
+# fitted(model.ardl)
+
 # Remove some lags
 rem.p = c(0,1) # 0 removes the main effect of X.t
 rem.q = c(1,3) 
 remove = list(p = rem.p , q = rem.q)
-model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-                     y = warming$Warming, p = 2 , q = 3 , remove = remove)
+model.ardl = ardlDlm(x = seaLevelTempSOI$LandOcean,  
+                     y = seaLevelTempSOI$GMSL, p = 2 , q = 3 , remove = remove)
 summary(model.ardl)
 
 # To remove intercept as well
 rem.q = c(1,3,-1) 
 remove = list(p = rem.p , q = rem.q)
-model.ardl = ardlDlm(x = warming$NoMotorVehicles, 
-                     y = warming$Warming, p = 2 , q = 3 , remove = remove)
+model.ardl = ardlDlm(x = seaLevelTempSOI$LandOcean,  
+                     y = seaLevelTempSOI$GMSL, p = 2 , q = 3 , remove = remove)
 summary(model.ardl)
 
 # Multiple independent series
@@ -124,3 +127,4 @@ model.ardlDlm  = ardlDlm(formula = logprice ~ interest + logm1,
                          remove = remove)
 summary(model.ardlDlm) 
 }
+
