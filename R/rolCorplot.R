@@ -41,7 +41,7 @@ rolCorPlot <- function(x , y , width, level = 0.95, main = NULL, SDtest = TRUE, 
   }
   sdPerComp <- data.frame(width, SDrolCor, sdPer)
   colnames(sdPerComp) <- c("Width", "SDrolCor", paste0(level*100, "%"), paste0((1-level)*100, "%"))
-  if (SDtest){ print(SDtest) }
+  #if (SDtest){ print(SDtest) }
   return(list(rolCor = rolCor , rolcCor.avr.filtered = rolcCor_avr, rolcCor.avr.raw = rolcCor_avr_org, 
               rolCor.sd = SDrolCor, rawCor = cor.xy, sdPercentiles = sdPer, test = sdPerComp ))
 }

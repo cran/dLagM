@@ -63,9 +63,9 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
     if (p == 1) p <- max.p
     if ( (NumVar>2)){
      
-      combs <- data.frame(1:p)
+      combs <- data.frame(0:p)
       for ( i in 2:(NumVar - 1)){
-        combs <- data.frame(combs, 1:p)
+        combs <- data.frame(combs, 0:p)
       }
       combs <- expand.grid(combs)
       colnames(combs) <- vars[2:NumVar]
@@ -86,6 +86,12 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
           reduce <- which((combs[i,] - max.p) != 0) 
           for ( j in reduce){
             remP[[paste0("d" ,vars[j + 1])]] <- c((combs[i,j] + 1):max.p)
+          }
+        }
+        if (sum(combs[i,] == 0) == (NumVar - 1)){ # all zeros
+          max.p <- 1
+          for (j in 1:(NumVar-1)){
+            remP[[paste0("d" ,vars[j + 1])]] <- 1
           }
         }
         modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = max.p , q = q , remove = list(p = c(rem.p , remP) ))  
@@ -118,11 +124,11 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
     orders <- array(NA, dim =c(500000, NumVar))
     # for (p in 1:(max.p + 1)){  # max.p+1 is to include 0
       # combs <- data.frame(1:p)
-      combs <- data.frame(1:max.p)
+      combs <- data.frame(0:max.p)
       if (NumVar > 2){
         for ( i in 2:(NumVar - 1)){
           # combs <- data.frame(combs, 1:p)
-          combs <- data.frame(combs, 1:max.p)
+          combs <- data.frame(combs, 0:max.p)
         }
       }
       combs <- expand.grid(combs)
@@ -130,7 +136,7 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
       
       count <- 0
       for ( i in 1:(nrow(combs))){
-        for (q in 1:max.q){ 
+        for (q in 0:max.q){ 
           max.p <- max(combs[i,])
           rem.p <- list()
           for (j in 1:NumVar){
@@ -147,7 +153,20 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
               remP[[paste0("d" ,vars[j + 1])]] <- c((combs[i,j] + 1):max.p)
             }
           }
-          modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = max.p , q = q , remove = list(p = c(rem.p , remP) ))  
+          if (sum(combs[i,] == 0) == (NumVar - 1)){ # all zeros
+            max.p <- 1
+            for (j in 1:(NumVar-1)){
+              remP[[paste0("d" ,vars[j + 1])]] <- 1
+            }
+          }
+          if ( q == 0){
+            rem.p <- list(p = c(rem.p , remP), q = c(1) )
+            modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = max.p , q = 1 , remove = rem.p)
+          } else {
+            rem.p <- list(p = c(rem.p , remP) )
+            modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = max.p , q = q , remove = rem.p)
+          }
+            
           count <- count + 1
           orders[count,] <- c(unlist(combs[i,]),q)
           if (ic == "AIC"){

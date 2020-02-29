@@ -40,7 +40,7 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
       coef.names <- coef.names[-2]
     }
 
-    model.fit <- dynlm( formula = as.formula(model.text) , data = data  )
+    model.fit <- dynlm( formula = as.formula(model.text) , data = data   , start = 1)
     names(model.fit$coefficients) <- coef.names
     output <- list(model = model.fit , order = c(p , q))
     model.fit$call <- paste0("Y ~ ", paste(coef.names , collapse = " + "))
@@ -61,7 +61,6 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
     for (j  in 1:k){
       model.text <- paste0(model.text , " + " , indeps[j])
       coef.names <- c(coef.names, paste0(indeps[j] , ".t"))
-      # coef.names = c(coef.names, paste0("X" , j , ".t"))
       seq.p = 1:p 
       if (is.null(remove.p[[indeps[j]]]) == FALSE){
         seq.p <- seq.p[ ! seq.p %in% remove.p[[indeps[j]]] ]      
@@ -69,7 +68,6 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
       for (i in seq.p){
         model.text <- paste0(model.text , " + L(" , indeps[j] , "," , i , ")")
         coef.names <- c(coef.names, paste0( indeps[j] , ".", i))
-        # coef.names = c(coef.names, paste0("X" , j , ".", i))
       }
     }
     seq.q = 1:q 
@@ -77,7 +75,6 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
     for (i in seq.q){
       model.text <- paste0(model.text , " + L(", dep,  "," , i , ")")
       coef.names <- c(coef.names, paste0(dep , ".", i))
-      # coef.names = c(coef.names, paste0("Y.", i))
     }
 
     # remove the main effects if wanted
@@ -85,14 +82,12 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
       if (sum(unlist(remove.p[indeps[i]]) == 0) > 0){ 
         model.text <- gsub(paste0(" " , indeps[i] , " \\+") , "" , model.text) 
         coef.names <- coef.names[-which(coef.names == paste0(indeps[i] , ".t"))]
-        # coef.names <- coef.names[-which(coef.names == paste0("X" , i , ".t"))]
       }
     }
     if (sum(grep("-1",gsub("\\s", "", formula))) != 0){
       model.text <- paste0(model.text, "-1")
     }
-
-    model.fit <- dynlm( formula = as.formula(model.text) , data = data)
+    model.fit <- dynlm( formula = as.formula(model.text) , data = data )
     names(model.fit$coefficients) <- coef.names
     output <- list(model = model.fit , order = c(p , q) ,  removed = remove , formula = formula , data = data)
     model.fit$call<- paste0(dep , " ~ ", paste(coef.names , collapse = " + "))

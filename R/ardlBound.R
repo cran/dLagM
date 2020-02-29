@@ -7,6 +7,7 @@
 #' @importFrom strucchange recresid
 #' @importFrom grDevices dev.new
 #' @importFrom grDevices graphics.off
+#' @importFrom utils tail
  
 cusumSq <- function(model, alpha = 0.05){
 # The following table is Table 1 of 
@@ -173,8 +174,13 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   colnames(diffData) <- paste0("d" , colnames(diffData))
   
   data <- cbind(data[2:nrow(data),],diffData)
+
+  if (max(p[2:NumVar]) == 1){
+    max.p <- 2
+  } else {
+    max.p <- max(p[2:NumVar])  
+  }
   
-  max.p <- max(p[2:NumVar])  
   rem.p <- list()
   for (i in 1:NumVar){
     if (max.p > 2){ 
@@ -217,14 +223,27 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   removeP$q <- remove$q
   rem.p <- appendList(rem.p, remove$p)
   removeP2 <- list(p = rem.p, q = remove$q )
-  
+
   formula1 <- as.formula(paste0("d" , vars[1] , " ~ " , paste(c(vars , 
                                                                 paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))   
+  
   if (case == 1){
     formula1 <- update(formula1, ~. -1) # Case 1 requires this
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ - 1 + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
-    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    print(formula1)
+    print(formula2)
+    if (p[[vars[1]]] == 1){
+      p[[vars[1]]] <- 2
+      removeP <- appendList(removeP, list( q = c(1)))
+      removeP2$q <- c(1)
+    }
     modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2) 
+    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP )
+    if (length(modelFull$model$residuals) != length(modelNull$model$residuals)){
+      strt <- nrow(data) - length(modelNull$model$residuals) 
+      modelNull <- ardlDlm(formula = formula2, data = data.frame(tail(data,(length(modelFull$model$residuals) + strt))) , 
+                           p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP )
+    }
     if ( ECM == TRUE){
       mult <- as.vector(modelFull$model$coefficients[2:NumVar] / modelFull$model$coefficients[1])
       ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar]))
@@ -236,11 +255,21 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   } else if (case == 2){
     formula1 <- update(formula1, ~. +1) 
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ - 1 + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
-    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    if (p[[vars[1]]] == 1){
+      p[[vars[1]]] <- 2
+      removeP <- appendList(removeP, list( q = c(1)))
+      removeP2$q <- c(1)
+    }
     modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2) 
+    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    if (length(modelFull$model$residuals) != length(modelNull$model$residuals)){
+      strt <- nrow(data) - length(modelNull$model$residuals)
+      modelNull <- ardlDlm(formula = formula2, data = data.frame(tail(data,(length(modelFull$model$residuals) + strt))) , 
+                           p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    }
     if ( ECM == TRUE){
       mult <- as.vector(modelFull$model$coefficients[3:(NumVar+1)] / modelFull$model$coefficients[2])
-      ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar])) - modelFull$model$coefficients[1] / modelFull$model$coefficients[2]
+      ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar])) + (modelFull$model$coefficients[1] / modelFull$model$coefficients[2])
       data.ecm <- data.frame(cbind(data, ec))
       formula3 <- as.formula(paste0("d" , vars[1] , " ~ - 1 + ec + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
       modelECM <- ardlDlm(formula = formula3, data = data.ecm , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
@@ -248,8 +277,17 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     }
   } else if (case == 3){
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ +1 + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
-    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    if (p[[vars[1]]] == 1){
+      p[[vars[1]]] <- 2
+      removeP <- appendList(removeP, list( q = c(1)))
+      removeP2$q <- c(1)
+    }
     modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2) 
+    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    if (length(modelFull$model$residuals) != length(modelNull$model$residuals)){
+      strt <- nrow(data) - length(modelNull$model$residuals)
+      modelNull <- ardlDlm(formula = formula2, data = data.frame(tail(data,(length(modelFull$model$residuals) + strt))) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    }
     if ( ECM == TRUE){
       mult <- as.vector(modelFull$model$coefficients[3:(NumVar+1)] / modelFull$model$coefficients[2])
       ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar]))
@@ -263,12 +301,21 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     data <- cbind(data , trend)
     formula1 <- as.formula(paste0(formula1 , " + trend")) 
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
+    if (p[[vars[1]]] == 1){
+      p[[vars[1]]] <- 2
+      removeP <- appendList(removeP, list( q = c(1)))
+      removeP2$q <- c(1)
+    }
     rem.p[["trend"]] <- c(1:(max.p-1))
-    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
     modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2) 
+    modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    if (length(modelFull$model$residuals) != length(modelNull$model$residuals)){
+      strt <- nrow(data) - length(modelNull$model$residuals)
+      modelNull <- ardlDlm(formula = formula2, data = data.frame(tail(data,(length(modelFull$model$residuals) + strt))) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    }
     if ( ECM == TRUE){
       mult <- as.vector(modelFull$model$coefficients[3:(NumVar+1)] / modelFull$model$coefficients[2])
-      ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar])) - modelFull$model$coefficients["trend.t"] * trend / modelFull$model$coefficients[2]
+      ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar])) + modelFull$model$coefficients["trend.t"] * trend / modelFull$model$coefficients[2]
       data.ecm <- data.frame(cbind(data, ec))
       formula3 <- as.formula(paste0("d" , vars[1] , " ~ ec + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
       modelECM <- ardlDlm(formula = formula3, data = data.ecm , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP )
@@ -279,22 +326,31 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     data <- cbind(data , trend)
     formula1 <- as.formula(paste0(formula1 , " + trend")) 
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") , " + trend" ))
+    if (p[[vars[1]]] == 1){
+      p[[vars[1]]] <- 2
+      removeP <- appendList(removeP, list( q = c(1)))
+      removeP2$q <- c(1)
+    }
     removeP$p[["trend"]] <- c(1:(max.p-1))
+    removeP2$p[["trend"]] <- c(1:(max.p-1))
     rem.p[["trend"]] <- c(1:(max.p-1))
+    modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2 ) 
     modelNull <- ardlDlm(formula = formula2, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
-    modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP2) 
+    if (length(modelFull$model$residuals) != length(modelNull$model$residuals)){
+      strt <- nrow(data) - length(modelNull$model$residuals)
+      modelNull <- ardlDlm(formula = formula2, data = data.frame(tail(data,(length(modelFull$model$residuals) + strt))) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
+    }
     if ( ECM == TRUE){
       mult <- as.vector(modelFull$model$coefficients[3:(NumVar+1)] / modelFull$model$coefficients[2])
       ec <- data[,1] + as.vector(mult %*% t(data[,2:NumVar]))
       data.ecm <- data.frame(cbind(data, ec))
       formula3 <- as.formula(paste0("d" , vars[1] , " ~ ec + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") , " + trend" ))
+      
       modelECM <- ardlDlm(formula = formula3, data = data.ecm , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = removeP ) 
       ecm.beta <- modelECM$model$coefficients["ec.1"]
     }
   }
 
-  # modelFull <- ardlDlm(formula = formula1, data = data.frame(data) , p = (max.p-1) , q = (p[[vars[1]]]-1) , remove = list(p = rem.p )) 
-  
   bg <- NULL
   bg <- lmtest::bgtest(modelFull$model, type = "F")
   cat("\n Breusch-Godfrey Test for the autocorrelation in residuals:\n")
@@ -339,7 +395,6 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     }
   }
   cat("------------------------------------------------------", "\n")
-
   Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]
   
   # if (is.null(k)) k = (NumVar - 1)
@@ -397,7 +452,11 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     
     cat("------------------------------------------------------", "\n")
     cat("Long-run coefficients: \n")
-    print(modelFull$model$coefficients[2:(NumVar+1)])
+    if (case == 1){
+      print(modelFull$model$coefficients[1:NumVar])
+    } else {
+      print(modelFull$model$coefficients[2:(NumVar+1)])
+    }
     cat(" ", "\n")
     # text <- paste0("EC = " , names(modelFull$model$coefficients[2]), " - (")
     # for ( i in 3:(NumVar+1)){

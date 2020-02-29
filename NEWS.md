@@ -44,7 +44,7 @@
 ## Version 1.0.19 (24 October 2019)
 * Added a warning message.
 * Added new explanations to help document.
-* A bug fixed. 
+* Fixed a bug. 
 
 ## Version 1.0.21 (17 January 2020)
 * Changed the output structure of DLMs.
@@ -52,3 +52,8 @@
 * Added seaLevelTemp and sunspotTemp datasets
 * Updated the examples in the documentation.
 * Removed "start" argument from rolCorPlot() function which need ts objects now.
+
+## Version 1.1.1 (28 February 2020)
+* Added citation information.
+* Fixed some outputs.
+* Fixed minor bugs.

@@ -1,6 +1,6 @@
 #' @export
 ardlDlm.default <-
-  function( formula = NULL , data = NULL , x = NULL, y = NULL , p = 1 , q = 1 , remove = NULL ){
+  function( formula = NULL , data = NULL , x = NULL, y = NULL , p = 1 , q = 1 , remove = NULL){
     
     options(warn=-1)
     remove.p <- remove$p
@@ -84,7 +84,7 @@ ardlDlm.default <-
       # Check if the biggest lag is removed from all the independent series
       cont <- TRUE
       while (cont & (p > 0)){
-        if (sum(p == unlist(remove.p)) == (length(formula) - 1)){
+        if ( (sum(p == unlist(remove.p)) == (length(get.vars(formula)) - 1)) & (p != 1) )  {
           for ( i in 1:length(remove.p)){
             remove.p[[i]] <- remove.p[[i]][-which(remove.p[[i]] == p)]
           }
@@ -94,7 +94,7 @@ ardlDlm.default <-
         }
       }
       remove$p <- remove.p
-      
+
       if (is.null(remove.q) == FALSE){
         if (is.matrix(remove.q) == TRUE){
           stop("You must enter a vector or scalar to remove autoregressive lags from the dependent series!")
@@ -104,7 +104,7 @@ ardlDlm.default <-
         }
         # Check if the biggest lag is removed from the dependent series
         cont <- TRUE
-        while (cont & (q > 0)){
+        while (cont & (q > 1)){
           if (q %in% remove.q){
             remove.q <- remove.q[-which(remove.q == q)]
             q <- q - 1
@@ -114,7 +114,7 @@ ardlDlm.default <-
         }
         remove$q <- remove.q
       }
-      
+
       res <- ardlDlm.main( formula = formula , data = data , p = p , q = q , remove = remove , type = 2)
       
     } else if ((is.null(formula) == TRUE) & (is.null(data) == FALSE)){
