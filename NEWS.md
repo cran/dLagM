@@ -57,3 +57,6 @@
 * Added citation information.
 * Fixed some outputs.
 * Fixed minor bugs.
+
+## Version 1.1.3 (10 May 2020)
+* Fixed the singularity problem with some cases.

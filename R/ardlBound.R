@@ -230,8 +230,8 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   if (case == 1){
     formula1 <- update(formula1, ~. -1) # Case 1 requires this
     formula2 <- as.formula(paste0("d" , vars[1] , " ~ - 1 + " , paste(c(paste0("d" , vars[2:NumVar] )) , collapse=" + ") ))
-    print(formula1)
-    print(formula2)
+    # print(formula1)
+    # print(formula2)
     if (p[[vars[1]]] == 1){
       p[[vars[1]]] <- 2
       removeP <- appendList(removeP, list( q = c(1)))
@@ -395,7 +395,13 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     }
   }
   cat("------------------------------------------------------", "\n")
-  Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]
+  tryCatch(
+    {Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]},
+    error = function(e) {
+      Fvalue <<- anova( modelNull$model , modelFull$model)$F[2]
+    }
+  )
+  # Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]
   
   # if (is.null(k)) k = (NumVar - 1)
   k = (NumVar - 1)
