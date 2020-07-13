@@ -9,9 +9,9 @@ Applies ARDL bounds test with the approach of Pesaran et al. (2001).
 }
 \usage{
 ardlBound(data = NULL, formula = NULL, case = 3, p = NULL,  
-          remove = NULL, autoOrder = FALSE, ic = c("AIC", "BIC", 
-          "MASE", "GMRAE"), max.p = 15, max.q = 15, 
-          ECM = TRUE, stability = TRUE)         
+          remove = NULL, autoOrder = FALSE, HAC = FALSE,
+          ic = c("AIC", "BIC", "MASE", "GMRAE"), max.p = 15, 
+          max.q = 15, ECM = TRUE, stability = TRUE)         
 }
 \arguments{
   \item{data}{
@@ -30,6 +30,9 @@ ardlBound(data = NULL, formula = NULL, case = 3, p = NULL,
   }
   \item{autoOrder}{
   If \code{TRUE}, the order of ARDL will be found by the \code{ardlBounOrders} function.
+  }
+  \item{HAC}{
+  If \code{TRUE}, the Newey-West estimate of variance-covariance function is used in testing.
   }
   \item{ic}{
   Information criterion to be used in the search for optimal orders.
@@ -70,8 +73,6 @@ The recursive CUSUM chart is plotted by \code{epf} function from the \code{struc
 \item{F.stat}{The value of F-statistic coming out of the Wald test.}
 
 \item{p}{p-orders in the lag structure.}
-
-\item{q}{Autoregressive order in the lag structure.}
 
 \item{k}{The number of independent series.} 
 

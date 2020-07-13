@@ -58,5 +58,6 @@
 * Fixed some outputs.
 * Fixed minor bugs.
 
-## Version 1.1.3 (10 May 2020)
-* Fixed the singularity problem with some cases.
+## Version 1.1.4 (13 July 2020)
+* Fixed the singularity problem with ARDL bounds test under some cases.
+* Added the option of running the ARDL bounds test with Newey-West estimator.

@@ -43,6 +43,7 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
       } else {
         obs = unlist(c( t(x.obs) , y.obs))
       }
+
       forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       for ( j in 1:k){
         x.obs[j, ] = guyrot(x.obs[j, ] , 1)
@@ -80,6 +81,8 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
       } else {
         obs = c(t(x.obs)[which(is.na(as.vector(t(x.obs))) == FALSE)] , y.obs[seq.q])
       }
+      print(coefs)
+      print(obs)
       forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       
       x.obs = x.obsO

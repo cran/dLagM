@@ -4,6 +4,11 @@ ardlBoundOrders <- function(data = NULL , formula = NULL, ic = c("AIC", "BIC", "
   if (is.null(formula)) stop("A formula object showing the dependent and indepdenent series must be entered.")
   vars <- all.vars(formula)
   NumVar <- length(vars)
+  
+  if ( NumVar < ncol(data)){ 
+    data <- data[,vars]
+  }
+  
   if (NumVar == 2){FullSearch = FALSE}
   diffData <- apply(data , 2 , diff)
   colnames(diffData) <- paste0("d" , colnames(diffData))

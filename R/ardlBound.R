@@ -8,6 +8,7 @@
 #' @importFrom grDevices dev.new
 #' @importFrom grDevices graphics.off
 #' @importFrom utils tail
+#' @importFrom sandwich NeweyWest
  
 cusumSq <- function(model, alpha = 0.05){
 # The following table is Table 1 of 
@@ -140,6 +141,7 @@ appendList <- function(list1, list2){
 
 #' @export
 ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remove = NULL, autoOrder = FALSE , 
+                      HAC = FALSE,
                       ic = c("AIC", "BIC", "MASE", "GMRAE") , 
                       max.p = 15,  max.q = 15, ECM = TRUE, stability = TRUE){
   if (is.null(data)) stop("Enter data by data argument.")
@@ -147,6 +149,10 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
 
   vars <- all.vars(formula)
   NumVar <- length(vars)
+
+  if ( NumVar < ncol(data)){ 
+    data <- data[,vars]
+  }
   
   if (is.null(p) | (autoOrder == TRUE) ){
     cat(" ", "\n")
@@ -396,7 +402,14 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   }
   cat("------------------------------------------------------", "\n")
   tryCatch(
-    {Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]},
+    {if (HAC == TRUE) {
+      cat("Newey-West HAC covariance matrix estimators are used for testing.", "\n")
+      neweyCM <- NeweyWest(modelFull$model)
+      Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model, vcov = neweyCM)$F[2]
+     } else {
+       Fvalue <- lmtest::waldtest( modelNull$model , modelFull$model)$F[2]
+     }
+    },
     error = function(e) {
       Fvalue <<- anova( modelNull$model , modelFull$model)$F[2]
     }
@@ -405,7 +418,7 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
   
   # if (is.null(k)) k = (NumVar - 1)
   k = (NumVar - 1)
-  
+
   pssbounds(obs = nrow(data) , fstat = Fvalue , case = case, k = k )
   
   if ((stability == TRUE) & (ECM == TRUE)){
@@ -472,10 +485,10 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     # cat(text, "\n")
   }
   if (ECM){
-    return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp, sp = sp,
+    return(list(model = list(modelNull = modelNull, modelFull = modelFull), F.stat = Fvalue , p = p , k = k, bg = bg, lb = lb , bp = bp, sp = sp,
              ECM = list(EC.t = ec, EC.model = modelECM$model , EC.beta = ecm.beta, EC.data = data.ecm), ARDL.model = modelFull$model ) )  
   } else {
-    return(list(model = list(modelNull = modelNull, modelFull = modelFull), ARDL.model = modelFull$model, F.stat = Fvalue , p = p , q = q, k = k, bg = bg, lb = lb , bp = bp, sp = sp ) )  
+    return(list(model = list(modelNull = modelNull, modelFull = modelFull), ARDL.model = modelFull$model, F.stat = Fvalue , p = p , k = k, bg = bg, lb = lb , bp = bp, sp = sp ) )  
   }
   
 }
