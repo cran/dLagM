@@ -1,6 +1,6 @@
 #' @export
 koyckDlm.default <-
-  function(x , y ){
+  function(x , y , intercept = TRUE ){
     
     options(warn=-1)
     
@@ -8,7 +8,7 @@ koyckDlm.default <-
       stop("Data series x and y both must be in a vector format!")
     }
   
-    res <- koyckDlm.main(x , y)
+    res <- koyckDlm.main(x = x , y = y , intercept = intercept)
     res$call <- match.call()
     class(res) <- c("koyckDlm" , "dLagM")
     res

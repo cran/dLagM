@@ -26,11 +26,13 @@
   CO2 and other Greenhouse Gas Emissions by Hannah Ritchie and Max Roser
 }
 \references{
- \url{http://www.agriculture.gov.au/abares/research-topics/agricultural-commodities/agricultural-commodities-trade-data#australian-crop-report-data}
+ https://www.agriculture.gov.au/abares/research-topics/agricultural-commodities/agricultural-commodities-trade-data#australian-crop-report-data
  
- \url{https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#annual-co2-emissions}
+ https://www.agriculture.gov.au/abares/research-topics/agricultural-outlook/data
  
- \url{https://climate.nasa.gov/vital-signs/global-temperature/}
+ https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#annual-co2-emissions
+ 
+ https://climate.nasa.gov/vital-signs/global-temperature/
 }
 \examples{
 data(wheat)

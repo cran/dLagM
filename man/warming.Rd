@@ -11,9 +11,9 @@
   Organisation Internationale des Constructeurs d'Automobiles (OICA)
 }
 \references{
- \url{https://climate.nasa.gov/vital-signs/global-temperature/}
+ https://climate.nasa.gov/vital-signs/global-temperature/
  
- \url{http://www.oica.net/category/production-statistics/}
+ https://www.oica.net/category/production-statistics/
 }
 \examples{
 data(warming)

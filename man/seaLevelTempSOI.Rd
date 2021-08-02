@@ -15,11 +15,11 @@
 \references{
 Church, J. A. and N.J. White (2011), Sea-level rise from the late 19th to the early 21st Century. Surveys in Geophysics, doi:10.1007/s10712-011-9119-1.
 
- \url{https://www.cmar.csiro.au/sealevel/sl_data_cmar.html}
-
- \url{https://data.giss.nasa.gov/gistemp/graphs_v4/}
+ https://www.cmar.csiro.au/sealevel/sl_data_cmar.html
  
- \url{http://www.bom.gov.au/climate/current/soihtm1.shtml}
+ https://data.giss.nasa.gov/gistemp/graphs_v4/
+ 
+ https://www.bom.gov.au/climate/current/soihtm1.shtml
 }
 \examples{
 data(seaLevelTempSOI)

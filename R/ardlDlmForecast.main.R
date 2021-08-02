@@ -81,8 +81,8 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
       } else {
         obs = c(t(x.obs)[which(is.na(as.vector(t(x.obs))) == FALSE)] , y.obs[seq.q])
       }
-      print(coefs)
-      print(obs)
+      # print(coefs)
+      # print(obs)
       forecasts[i] = as.vector(coefs) %*% obs + epsilon[(i-q)]
       
       x.obs = x.obsO

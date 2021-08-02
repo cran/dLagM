@@ -12,9 +12,9 @@
   
 }
 \references{
- \url{https://data.giss.nasa.gov/gistemp/graphs_v4/}
+ https://data.giss.nasa.gov/gistemp/graphs_v4/
  
- \url{ftp://ftp.swpc.noaa.gov/pub/weekly/RecentIndices.txt}
+ ftp://ftp.swpc.noaa.gov/pub/weekly/RecentIndices.txt
 }
 \examples{
 data(sunspotTemp)

@@ -1,11 +1,15 @@
-koyckDlm.main <- function(x , y){
+koyckDlm.main <- function(x , y, intercept ){
   X.t_1 <- array(NA , length(x))
   Y.1 <- array(NA , length(y))
   X.t_1[-1] <- x[1:(length(x) - 1)] 
   Y.1[-1] <- y[1:(length(y) - 1)] 
   y.t <- y
   X.t <- x
-  model <- ivreg(y.t ~ Y.1 + X.t | Y.1 + X.t_1)
+  if ( intercept ){
+    model <- ivreg(y.t ~ Y.1 + X.t | Y.1 + X.t_1)
+  } else if (!intercept){
+    model <- ivreg(y.t ~ Y.1 + X.t -1 | Y.1 + X.t_1 )
+  }
   coefs <- model$coefficients
   beta <- coefs[3]
   phi <- coefs[2]

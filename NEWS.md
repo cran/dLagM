@@ -61,3 +61,10 @@
 ## Version 1.1.4 (13 July 2020)
 * Fixed the singularity problem with ARDL bounds test under some cases.
 * Added the option of running the ARDL bounds test with Newey-West estimator.
+
+## Version 1.1.5 (27 January 2021)
+* Fixed  a minor output issue.
+
+## Version 1.1.6 (09 July 2021)
+* Added a new dataset called GrainProduction.
+

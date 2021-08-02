@@ -8,7 +8,7 @@ Implement distributed lag models with Koyck transformation
 Applies distributed lag models with Koyck transformation with one predictor.
 }
 \usage{
-koyckDlm(x , y)
+koyckDlm(x , y , intercept)
 }
 \arguments{
   \item{x}{
@@ -16,6 +16,9 @@ koyckDlm(x , y)
   }
   \item{y}{
   A vector including the observations of dependent time series. This is not restricted to \code{ts} objects.
+  }
+  \item{intercept}{
+  Set to \code{TRUE} to inclue intercept in the model.
   }
 }
 \details{

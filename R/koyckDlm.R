@@ -1,2 +1,2 @@
 #' @export
-koyckDlm <- function(x , y) UseMethod("koyckDlm")
+koyckDlm <- function(x , y , intercept) UseMethod("koyckDlm")
