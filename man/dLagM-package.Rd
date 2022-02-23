@@ -12,8 +12,8 @@ Provides time series regression models with one predictor using finite distribut
 \tabular{ll}{
 Package: \tab dLagM\cr
 Type: \tab Package\cr
-Version: \tab 1.1.6.2\cr
-Date: \tab 2021-08-02\cr
+Version: \tab 1.1.7\cr
+Date: \tab 2022-02-23\cr
 License: \tab GPL-3\cr
 }
 
@@ -33,10 +33,13 @@ To summarise the results of a model fitting, use \code{summary} function.
 }
 
 \author{
-Haydar Demirhan
+Haydar Demirhan (https://orcid.org/0000-0002-8565-4710)
 
 Maintainer: Haydar Demirhan <haydar.demirhan@rmit.edu.au>
+
+Acknowledgements: The author acknowledges the testing effort of of Dr. Rogerio Porto (https://orcid.org/0000-0002-6663-9531) on forecasting function.
 }
+
 \references{
 B.H. Baltagi. \emph{Econometrics}, Fifth Ed. Springer, 2011.
 

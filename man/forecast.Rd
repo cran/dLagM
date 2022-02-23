@@ -67,9 +67,9 @@ data(M1Germany)
 data = M1Germany[1:144,]
 model.ardlDlm1  = ardlDlm(formula = logprice ~ interest + logm1, 
        data = data.frame(data) , p = 2 , q = 1 )
-x.new =  matrix(c(0.07 , 9.06 , 0.071 , 9.09), ncol = 2, 
+x.new =  matrix(c(0.07 , 9.06 , 0.071 , 9.09, 0.08, 9.2), ncol = 3, 
                 nrow = 2)
-forecast(model = model.ardlDlm1 , x = x.new , h = 2 , 
+forecast(model = model.ardlDlm1 , x = x.new , h = 3 , 
                 interval = TRUE, nSim = 100)       
        
 rem.p = list(interest = c(1,2))
