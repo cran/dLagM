@@ -1,5 +1,6 @@
 #' @importFrom MASS mvrnorm
 #' @importFrom roll roll_cor
+#' @importFrom grDevices rgb
 #' @export
 sdPercentiles <- function(n = 150, cor = 0.5, width = 5, N = 500, percentiles = c(.05, .95)){
   # library(roll)

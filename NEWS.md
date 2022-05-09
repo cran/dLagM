@@ -71,3 +71,6 @@
 ## Version 1.1.7 (23 February 2022)
 * Fixed a bug in forecasting with ARDL models. Appreciate the tesing effort of Dr. Rogério Porto (https://orcid.org/0000-0002-6663-9531) to identify the bug.
 
+## Version 1.1.8 (09 May 2022)
+* Fixed a bug in forecasting with ARDL models. Appreciate the tesing effort of Mr. Arthur Welle to identify the bug.
+

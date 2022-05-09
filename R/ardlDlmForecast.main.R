@@ -1,18 +1,19 @@
-matchCoefsToDesign <- function(coefs, design){
+matchCoefsToDesign <- function(vars, indeps, coefs, design){
   obs <- array()
   terms <- names(coefs)
   for (j in 1:length(terms)){
+    elements <- strsplit(terms[j], "\\.")[[1]]
     if (terms[j] == "(Intercept)"){
       obs[j] <- 1  
-    } else if (grepl("x", terms[j], fixed = TRUE)){
-      if (grepl("t", terms[j], fixed = TRUE)){ # Main effect of independent
+    } else if (length(which(elements[1] == indeps)) > 0){
+      if (elements[2] == "t"){ # Main effect of independent
         elements <- strsplit(terms[j], "\\.")[[1]]
         obs[j] <- design[which(names(design) == paste0("L(", elements[1], ", ", "0)"))]
       } else { # Lag of independent
         element <- paste0("L(", strsplit(terms[j], "\\.")[[1]][1], ", " , strsplit(terms[j], "\\.")[[1]][2], ")")
         obs[j] <- design[which(names(design) == element)]
       }
-    } else if (grepl("y", terms[j], fixed = TRUE)){ # Dependent series
+    } else if (grepl(setdiff(vars,indeps), terms[j], fixed = TRUE)){ # Dependent series
       element <- paste0("L(", strsplit(terms[j], "\\.")[[1]][1], ", " , strsplit(terms[j], "\\.")[[1]][2], ")")
       obs[j] <- design[which(names(design) == element)]
     }
@@ -106,18 +107,19 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
     forecasts <- array()
     designNew <- array()
     for ( t in (1:h)){
-      yDesign <- guyrot(design[grepl("y", names(design), fixed = TRUE)],1)# The first element of this will be replaced by the new forecast
+      #yDesign <- guyrot(design[grepl(setdiff(vars,indeps), names(design), fixed = TRUE)],1)# The first element of this will be replaced by the new forecast
+      yDesign <- guyrot(design[grepl(paste0("(",setdiff(vars,indeps), ","), names(design), fixed = TRUE)],1)# The first element of this will be replaced by the new forecast
       designNew <- c(yDesign)
       xDesign <- list()
       for (j in 1:k){
-        xDesign[[j]] <- guyrot(design[grepl(paste0("x",j), names(design), fixed = TRUE)],1)
+        xDesign[[j]] <- guyrot(design[grepl(indeps[j], names(design), fixed = TRUE)],1)
         # The first element of these will be replaced by the new independent observation
         xDesign[[j]][1] <- x[j, t] # t counts time
         designNew <- c(designNew, xDesign[[j]])
       }
       
-      obs <- matchCoefsToDesign(coefs, designNew)
-        
+      obs <- matchCoefsToDesign(vars, indeps, coefs, designNew)
+      
       forecasts[t] <- as.vector(coefs) %*% obs + epsilon[t]
       designNew[1] <- forecasts[t]
       design <- designNew

@@ -1,13 +1,13 @@
-982acc18c011d657d2df6961cd615bee *DESCRIPTION
-e4c9429817d46875444c12dd70254fcf *NAMESPACE
-c0e062ee304f470aa5fa30e9813c3051 *NEWS.md
+1730934492d314eaa932aa57bbee4a09 *DESCRIPTION
+2231f1ca7f2b2c271a7b0a806dbed0bb *NAMESPACE
+3635e09896dbfc82f0a350fce24b1a2e *NEWS.md
 147cb32f5dc71fcb55ec8095544fae44 *R/GoFs.R
-ba0c768e1653f6386665ad19de84d4b7 *R/ardlBound.R
+c9ac8d64043e955e9fb06252af74958d *R/ardlBound.R
 7aa0cacfe30a854c29d5ee38dcb0202e *R/ardlBoundOrders.R
 641088e1133d00a428e50cbf8f500b3d *R/ardlDlm.R
 1955cfed9159f78fc0963d22b87a19bd *R/ardlDlm.default.R
 c0f8eaf3f96c4af7cd2f07e17f752a88 *R/ardlDlm.main.R
-07588f74558294be0fd413a7bd7cdea6 *R/ardlDlmForecast.main.R
+098179e1dec346911ef70586bab757d4 *R/ardlDlmForecast.main.R
 ef28956b1481fab600f2cda023015ec1 *R/dlm.R
 24ca7d8f8c0546fb2b8945a844155812 *R/dlm.default.R
 66bdf2a07df687111a6fcf84b16eb9ed *R/dlm.main.R
@@ -30,7 +30,7 @@ ed505ce1539eb70b884e0979ea2972c9 *R/polyDlm.R
 e2ddf40f69f0f70877b0a1e9067c85bd *R/polyDlm.main.R
 f3bca945d15963344e369427079b8b0e *R/polyDlmForecast.main.R
 4526deb64469c951e4d03489498f64ab *R/rolCorplot.R
-42bbe5406c3e48dc2107f74c28232c7f *R/sdPercentiles.R
+15b41450491ef4d84da4fcd31152679f *R/sdPercentiles.R
 4304757346b7f245714166ab2626626b *R/sortScore.R
 3b1abfdb7aa8334c2dbcb2e518f784f4 *R/summaryFunctions.R
 b7bf53d30ac07641caa4c8c739e3ca84 *README.md
@@ -44,7 +44,7 @@ cf5ae1b157ef6f004a541d0e7ca24edd *man/GoF.Rd
 ff51c4c846b074f782b755a86598b241 *man/ardlBound.Rd
 f2cb8038ea76be59e4ddaa55a7ef1685 *man/ardlBoundOrders.Rd
 61ceccaa0551e7a830956a7181a0301d *man/ardlDlm.Rd
-92125e520d6aeba89edb5e5e0bf2b3fa *man/dLagM-package.Rd
+e0ef57bb905ae1e8b5b3d9c6ee7fa27f *man/dLagM-package.Rd
 516870df3e1bd01922ebec4e04a870b2 *man/dlm.Rd
 441d094adb7935c57dbfd598bc4c81ca *man/finiteDLMauto.Rd
 e522410b0fc9f6a976992a83a47a244b *man/forecast.Rd

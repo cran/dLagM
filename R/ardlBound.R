@@ -122,10 +122,15 @@ cusumSq <- function(model, alpha = 0.05){
     lb[i] <- -c0 + (start(Wr)[1] + i - 1 - k)/(t-k)
     ub[i] <- c0 + (start(Wr)[1] + i - 1 - k)/(t-k)
   }
+  # Remove
+  cex = 1.1
+  par(family = "Arial")
+  par(cex.lab=cex, cex.main = cex, cex.axis = cex)
+  # Remove
   plot(ts(WrSq, start = start(Wr)), ylim = c(min(lb)-0.1,max(ub)+0.1), ylab="CUSUM of squared residuals", main ="Recursive CUSUM of squares test")
   lines(ts(lb, start = start(Wr)), col = "red")
   lines(ts(ub, start = start(Wr)), col = "red")
-  abline(h=0)
+  abline(h=0, col = rgb(0,0,0), lty = 1, lwd=1.05)
 }
 
 appendList <- function(list1, list2){
@@ -435,7 +440,15 @@ ardlBound <- function(data = NULL , formula = NULL , case = 3 , p = NULL , remov
     cusum.test <- efp(modelECM$model, data = modelECM$model$model, type = "Rec-CUSUM")
     mosum.test <- efp(modelECM$model, data = modelECM$model$model, type = "Rec-MOSUM")
     graphics.off()
+    
     plot.new()
+    
+    # Remove
+    cex = 1.1
+    par(family = "Arial")
+    par(cex.lab=cex, cex.main = cex, cex.axis = cex)
+    # Remove
+    
     par(oma = c(4, 1, 1, 1))
     two <- FALSE
     if (sum(c(any(is.nan(cusum.test$process)), any(is.nan(mosum.test$process)))) >0){
