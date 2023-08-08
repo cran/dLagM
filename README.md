@@ -16,3 +16,5 @@ install.packages('dLagM', dependencies = TRUE)
 ## License
 
 This package is free and open source software, licensed under GPL-3.
+
+Like R, dLagM is a free software package and comes with ABSOLUTELY NO WARRANTY.

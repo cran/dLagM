@@ -8,7 +8,7 @@ Implement finite distributed lag model
 Applies distributed lag models with one or multiple predictor(s).
 }
 \usage{
-dlm(formula , data , x , y , q , remove )
+dlm(formula , data , x , y , q , remove , type)
 }
 
 \arguments{
@@ -28,6 +28,9 @@ dlm(formula , data , x , y , q , remove )
   \item{remove}{
   A list object showing the lags to be removed from the model for each independent series in its elements. Please see the details for the construction of this argument.
   }
+  \item{type}{
+    An integer taking 1 if only x and y vectors are entered, 2 if a formula and data matrix is entered. It can be left \code{NULL} since the correct value is checked and fixed by the code.
+ }
  
 }
 

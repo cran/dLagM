@@ -1,3 +1,4 @@
+#' @export
 polyDlm.main <- function(x , y , q , k , show.beta = TRUE ){
   n <- length(x)
   design  <- dlm(x = x , y = y , q = q )$designMatrix

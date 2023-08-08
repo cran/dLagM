@@ -1,3 +1,4 @@
+#' @export
 ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type = 1){
   remove.p <- remove$p
   remove.q <- remove$q

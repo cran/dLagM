@@ -96,7 +96,7 @@ ardlDlmForecast.main = function(model , x , h = 1 , type , epsilon = NULL){
     # designOriginal <- design
     # design <- designOriginal
     full.model = ardlDlm(formula = model$formula , data = data.frame(model$data) , p = p , q = q )
-    design = unlist(full.model$model$model[nrow(model$model$model) , ]) 
+    design = unlist(full.model$model$model[nrow(full.model$model$model) , ]) 
     designTerms <- names(design)
     mains <- which(grepl("(", designTerms, fixed = TRUE) == FALSE)
     for (j in 1:length(mains)){

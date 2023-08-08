@@ -1,6 +1,6 @@
 #' @export
 dlm.default <-
-  function(formula = NULL , data = NULL, x , y , q , remove = NULL ){
+  function(formula = NULL , data = NULL, x , y , q , remove = NULL , type = 2){
     
     options(warn=-1)
     q <- round(q)

@@ -1,6 +1,6 @@
 #' @export
 finiteDLMauto.default <- function(formula = NULL , data = NULL, x = NULL, y =NULL, q.min = 1 , q.max = 10, 
-                                  k.order = NULL , model.type = c("dlm","poly") , error.type = c("MASE","AIC","BIC","GMRAE", "MBRAE", "radj") , trace = FALSE){
+                                  k.order = NULL , model.type = c("dlm","poly") , error.type = c("MASE","AIC","BIC","GMRAE", "MBRAE", "radj") , trace = FALSE, type){
   if (q.min > q.max){
     stop("Minumum lag length must be less than maximum lag length!")
   }

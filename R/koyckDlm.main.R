@@ -1,3 +1,4 @@
+#' @export
 koyckDlm.main <- function(x , y, intercept ){
   X.t_1 <- array(NA , length(x))
   Y.1 <- array(NA , length(y))

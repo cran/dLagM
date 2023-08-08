@@ -7,12 +7,21 @@ dlmForecast.main <- function(model , x , h = 1 , type , epsilon = NULL){
     n <- nrow(model$model$model)
     m <- ncol(model$model$model)
     if (type == 1){
+      removed <- unlist(model$removed)
       x.obs <- model$model$model[n , 2:m] # The last row of design matrix
       x.obs <- wavethresh::guyrot(x.obs,1)
       x.obs[1] <- x[1] 
-      x.obs <- as.vector(data.frame(1 , x.obs))
+      # HD: added in version 1.1.9
+      if (is.null(removed)){
+        x.obs <- as.vector(data.frame(1 , x.obs))
+      } else if ( sum(removed %in% -1) >= 1 ){ # See if remove intercept 
+        x.obs <- as.vector(x.obs)
+        removed <- removed[which(removed != -1)]
+      } 
+      # HD: added in version 1.1.9
+      
       for (i in 1:h){
-        forecasts[i] <- as.vector(coefs)%*%t(x.obs)
+        forecasts[i] <- as.vector(coefs) %*% as.numeric(t(x.obs)) # HD: added as.numeric() in version 1.1.9
         x.obs <- wavethresh::guyrot(x.obs,1)
         if (i != h){
           x.obs[1] <- 1

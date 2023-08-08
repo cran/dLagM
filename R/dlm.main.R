@@ -1,5 +1,6 @@
+#' @export
 dlm.main <- 
-  function(formula , data , x , y , q , remove , type =2){
+  function(formula , data , x , y , q , remove , type = 2){
   remove.main <- FALSE
   remove.original <- remove
   if (type == 1){
@@ -14,6 +15,7 @@ dlm.main <-
       remove.main <- TRUE
       remove <- remove[which(remove != 0)]
     }
+    
     n <- length(x)
     r <- length(remove)
     design <- array(NA, dim = c(length((q+1):n),(q+2-r)))
@@ -54,7 +56,7 @@ dlm.main <-
     
     model <- lm(formula = model.formula , design )
     
-    output <- list(model = model, designMatrix = design , q = q , removed = remove)
+    output <- list(model = model, designMatrix = design , q = q , removed = remove.original) # HD: v 1.1.9 remove)
     model$call <- "Y ~ X"
   } else if (type == 2){
     

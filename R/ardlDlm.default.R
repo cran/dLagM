@@ -1,6 +1,6 @@
 #' @export
 ardlDlm.default <-
-  function( formula = NULL , data = NULL , x = NULL, y = NULL , p = 1 , q = 1 , remove = NULL){
+  function( formula = NULL , data = NULL , x = NULL, y = NULL , p = 1 , q = 1 , remove = NULL, type = NULL){
     
     options(warn=-1)
     remove.p <- remove$p

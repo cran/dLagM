@@ -74,3 +74,7 @@
 ## Version 1.1.8 (09 May 2022)
 * Fixed a bug in forecasting with ARDL models. Appreciate the tesing effort of Mr. Arthur Welle to identify the bug.
 
+## Version 1.1.12 (08 August 2023)
+* Fixed a bug in forecasting with DLMs. Appreciate the testing effort of Ms Kerryn Hyde and Ms Megan Downie to identify the bug. It does not impact the numerical results from previous versions.
+* The argument 'type' is added for ardlDlm(), dlm() and finiteDLMauto() functions for R's functionality. This change has no impact on the functionality of past codes.
+

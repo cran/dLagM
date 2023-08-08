@@ -11,7 +11,7 @@ Fits finite DLMs for a range of lag lengths and orders the fitted models accordi
 finiteDLMauto(formula , data, x, y, q.min = 1, q.max = 10, k.order = NULL, 
               model.type = c("dlm","poly"), error.type = c("MASE","AIC",
                             "BIC","GMRAE", "MBRAE", "radj"), 
-              trace = FALSE)
+              trace = FALSE , type)
 }
 \arguments{
   \item{formula}{A \code{formula} object for the model to be fitted. In the case of multiple predictor series, the model should be entered via a formula object.
@@ -42,7 +42,9 @@ finiteDLMauto(formula , data, x, y, q.min = 1, q.max = 10, k.order = NULL,
   \item{trace}{
   If \code{TRUE}, prints all of the goodness-of-fit measures for all fitted models.
   }  
- 
+  \item{type}{
+    An integer taking 1 if only x and y vectors are entered, 2 if a formula and data matrix is entered. It can be left \code{NULL} since the correct value is checked and fixed by the code.
+ }
 }
 \details{
 When there is only one predictor series, both of \code{model} and \code{formula} objects can be used. But when they are supplied, both \code{x} and \code{y} arguments should be \code{NULL}.

@@ -1,3 +1,4 @@
+#' @export
 finiteDLMauto.main <- function(formula, data, x, y, q.min, q.max, k.order, model.type, error.type, trace, type){
   #set parameter value
   

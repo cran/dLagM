@@ -9,7 +9,7 @@ Applies autoregressive distributed lag models of order (p , q) with one predicto
 }
 \usage{
 ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 , 
-         remove = NULL )
+         remove = NULL , type = NULL )
 }
 \arguments{
   \item{formula}{A \code{formula} object for the model to be fitted. In the case of multiple predictor series, the model should be entered via a formula object. 
@@ -32,6 +32,9 @@ ardlDlm(formula = NULL , data = NULL , x = NULL , y = NULL , p = 1 , q = 1 ,
   \item{remove}{
   A list object having two elements showing the lags of independent series with \code{p} and the autoregressive lags with \code{q} to be removed from the full model for each independent series. Please see the details for the construction of this argument.
   }
+  \item{type}{
+    An integer taking 1 if only x and y vectors are entered, 2 if a formula and data matrix is entered. It can be left \code{NULL} since the correct value is checked and fixed by the code.
+ }
 }
 \details{
 The autoregressive DLM is a flexible and parsimonious infinite distributed lag model. The model ARDL\eqn{(p, q)} is written as

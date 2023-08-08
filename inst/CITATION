@@ -17,7 +17,7 @@ citHeader("The citation for the dLagM package in publications:")
 
 bibentry(bibtype = "Article",
   title     = "{dLagM}: An {R} package for distributed lag models and {ARDL} bounds testing",
-  author    = personList(as.person("Haydar Demirhan")),
+  author    = "Haydar Demirhan",
   journal   = "PLoS ONE",
   volume    =  15,
   number    =  2,
