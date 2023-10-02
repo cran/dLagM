@@ -37,6 +37,8 @@ Prediction intervals are found by the Monte Carlo approach using a Gaussian erro
 
 When the \code{model} argument includes multiple independent series, \code{x} must be entered as a matrix including the new observations of each independent series in its rows. The number of columns of \code{x} must be equal to the forecast horizon \code{h} and the rows of \code{x} must match with the independent series in the order they appear in the \code{data}.
 
+When \code{x} and \code{y} are used to fit the model and some elements of the model are removed, you must use \code{model} and \code{formula} instead of \code{x} and \code{y} to fit the model and send the new data as a matrix into the forecast() function.
+
 This function can still be used when some of the lags of independent series are removed from the model.
 }
 

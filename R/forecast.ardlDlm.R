@@ -8,6 +8,12 @@ forecast.ardlDlm <-
     if (h < 0){
       stop("The number of forecasts must be a positive integer!")
     }
+    
+    if ((is.null(model$formula) == TRUE) & (is.null(model$removed) == TRUE)){
+      stop("When 'x' and 'y' are used to fit the model and some elements of the model are removed, you must use 'model' 
+           and 'formula' instead of 'x' and 'y' to fit the model and send the new data as a matrix into the forecast() function.")
+    }
+    
     if (is.matrix(x) == FALSE){
       type <- 1
       if (length(x) < h){

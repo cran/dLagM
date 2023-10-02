@@ -43,7 +43,7 @@ ardlDlm.main = function(formula , data , x , y , p = 1 , q = 1 , remove , type =
 
     model.fit <- dynlm( formula = as.formula(model.text) , data = data   , start = 1)
     names(model.fit$coefficients) <- coef.names
-    output <- list(model = model.fit , order = c(p , q))
+    output <- list(model = model.fit , order = c(p , q), removed = remove )
     model.fit$call <- paste0("Y ~ ", paste(coef.names , collapse = " + "))
   } else if (type == 2){
     

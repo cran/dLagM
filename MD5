@@ -1,4 +1,4 @@
-90e57c432756757ecf3201bc2fde2143 *DESCRIPTION
+53112b5c1bbe6c8be80b0da0be02c6ed *DESCRIPTION
 4012c718928e259c742356b8e1f846f9 *NAMESPACE
 681f7f594649aac692348ddcb89ba108 *NEWS.md
 147cb32f5dc71fcb55ec8095544fae44 *R/GoFs.R
@@ -6,7 +6,7 @@ c9ac8d64043e955e9fb06252af74958d *R/ardlBound.R
 7aa0cacfe30a854c29d5ee38dcb0202e *R/ardlBoundOrders.R
 8d7b7fe115578f4aa42b3d9558790a50 *R/ardlDlm.R
 b1b065c7873e0bcbb0a5294a7dbc829a *R/ardlDlm.default.R
-b7f26f3ab83aef8e55e8be1e802f8807 *R/ardlDlm.main.R
+fa3a6e13725f69fee341a822edb1b8fa *R/ardlDlm.main.R
 83ea0b2aaff3dd7492f5daa2aed8fc7a *R/ardlDlmForecast.main.R
 b19daac4e7dd651ca354073a6c0c42a4 *R/dlm.R
 668ffd3e4e7571013ed88bdb00259a78 *R/dlm.default.R
@@ -16,7 +16,7 @@ b19daac4e7dd651ca354073a6c0c42a4 *R/dlm.R
 6b729bcb8ebf8c3b03f65dd61ad44eea *R/finiteDLMauto.default.R
 2990b10887d64dd786c41f18c9b296e3 *R/finiteDLMauto.main.R
 534128b47f40568a6b6a095fd2916ac5 *R/forecast.R
-68e4f139cf7547cc345f0048d890f9ef *R/forecast.ardlDlm.R
+897b7a3cb556258968bd52ab8b41252d *R/forecast.ardlDlm.R
 73371c5d881af8f91db72a4c9b89ad0f *R/forecast.dlm.R
 2ecad5a15a8ef53b57185f19c2839fe0 *R/forecast.koyckDlm.R
 8e7dfeeaecb515ab3330069c3a699136 *R/forecast.polyDlm.R
@@ -44,10 +44,10 @@ cf5ae1b157ef6f004a541d0e7ca24edd *man/GoF.Rd
 ff51c4c846b074f782b755a86598b241 *man/ardlBound.Rd
 f2cb8038ea76be59e4ddaa55a7ef1685 *man/ardlBoundOrders.Rd
 79eeba1f310b4c678d52295bedd15833 *man/ardlDlm.Rd
-bd3828bbbdd6ef63d884e7a29d1c28f4 *man/dLagM-package.Rd
+8bd888e2a90bd9362d0b8131e543703b *man/dLagM-package.Rd
 3b80ee5a101a36a42749f33bb4311981 *man/dlm.Rd
 2f2c3c04411da4979f89b158f44006da *man/finiteDLMauto.Rd
-e522410b0fc9f6a976992a83a47a244b *man/forecast.Rd
+0a8e5de33123432bd61bd5ea3c2e67d3 *man/forecast.Rd
 c124ebcb9f4f8805059c07c121771800 *man/grainProduction.Rd
 e82dfcde170d1d2689c1a1ca928f1c8e *man/koyckDlm.Rd
 9e37621cdb2e0b1d0ab0dc7b4271be52 *man/polyDlm.Rd
